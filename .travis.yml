@@ -14,7 +14,7 @@ script:
   - ng build --prod --base-href "https://joshilewis.github.io/lendtome-ng4/"
 
 after_success:
-  - ngh
+  - ngh --no-silent
 
 notifications:
   email:
