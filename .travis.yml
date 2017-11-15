@@ -12,7 +12,7 @@ before_script:
 
 script:
   - ng build --prod --base-href "https://joshilewis.github.io/lendtome-ng4/"
-  - ngh --no-silent
+  - ngh --repo=https://GH_TOKEN@github.com/joshilewis/lendtome-ng4.git
 
 after_success:
 
