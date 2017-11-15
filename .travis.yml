@@ -12,9 +12,9 @@ before_script:
 
 script:
   - ng build --prod --base-href "https://joshilewis.github.io/lendtome-ng4/"
+  - ngh --no-silent
 
 after_success:
-  - ngh --no-silent
 
 notifications:
   email:
