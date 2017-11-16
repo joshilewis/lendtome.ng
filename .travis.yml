@@ -11,7 +11,7 @@ before_script:
   - npm i -g angular-cli-ghpages
 
 script:
-  - ng build --prod --base-href "https://joshilewis.github.io/lendtome-ng4/"
+  - ng build --prod --base-href "https://app.lend-to.me"
 
 after_success:
   - firebase deploy --token $FIREBASE_TOKEN
