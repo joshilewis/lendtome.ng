@@ -12,9 +12,9 @@ before_script:
 
 script:
   - ng build --prod --base-href "https://joshilewis.github.io/lendtome-ng4/"
-  - ngh --repo=https://GH_TOKEN@github.com/joshilewis/lendtome-ng4.git
 
 after_success:
+  - firebase deploy --token $FIREBASE_TOKEN
 
 notifications:
   email:
