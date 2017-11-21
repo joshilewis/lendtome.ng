@@ -1,0 +1,22 @@
+<h2>Your Libraries</h2>
+<div *ngIf="lendtomeService.administeredLibraries | async; then loaded else loading">
+  <!-- template will replace this div -->
+</div>
+
+<ng-template #loading>
+  Busy fetching your libraries
+</ng-template>
+
+<ng-template #loaded>
+  <div *ngIf="!(lendtomeService.administeredLibraries | async).length">
+    You don't have any libraries yet!!
+  </div>
+
+  <div *ngIf="(lendtomeService.administeredLibraries | async).length">
+    <ul>
+      <li *ngFor="let library of lendtomeService.administeredLibraries | async">
+        {{library.id}} {{library.name}}
+      </li>
+    </ul>
+  </div>
+</ng-template>
