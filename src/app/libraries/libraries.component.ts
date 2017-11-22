@@ -15,10 +15,7 @@ import { tap } from 'rxjs/operators';
 export class LibrariesComponent implements OnInit {
   constructor(public lendtomeService: LendtomeService, private http: HttpClient) {}
 
-  myLibraries: Observable<LibrarySearchResult[]>;
-
   ngOnInit() {
-    this.myLibraries = this.lendtomeService.listLibraries();
   }
 
   listBooks() {

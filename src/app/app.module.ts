@@ -17,6 +17,8 @@ import { CoreModule } from './core/core.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { TokenInterceptor } from './core/token.interceptor';
 import { LendtomeService } from './lendtome.service';
+import { AuthService } from './core/auth.service';
+import { AuthGuard } from './core/auth.guard';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { LendtomeService } from './lendtome.service';
       multi: true,
     },
     LendtomeService,
+    AuthService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

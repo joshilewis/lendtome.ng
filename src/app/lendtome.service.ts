@@ -19,22 +19,16 @@ export class LendtomeService {
     private http: HttpClient,
     private authService: AuthService
   ) {
-    this.administeredLibraries = this.http
-      .get<LibrarySearchResult[]>('https://dev.lend-to.me/api/libraries/');
+        this.administeredLibraries = this.http.get<LibrarySearchResult[]>(
+          'https://dev.lend-to.me/api/libraries/');
   }
-
-  listLibraries(): Observable<LibrarySearchResult[]> {
-      return this.http
-        .get<LibrarySearchResult[]>('https://dev.lend-to.me/api/libraries/');
-  }
-
 
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
+    return (err: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+      console.error(err); // log to console instead
       // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
+      console.log(`${operation} failed: ${err.message}`);
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
