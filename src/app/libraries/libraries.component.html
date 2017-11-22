@@ -8,15 +8,19 @@
 </ng-template>
 
 <ng-template #loaded>
-  <div *ngIf="!(lendtomeService.administeredLibraries | async).length">
-    You don't have any libraries yet!!
+  <div *ngIf="(lendtomeService.administeredLibraries | async)?.length == 0 then noLibraries else hasLibraries">
   </div>
 
-  <div *ngIf="(lendtomeService.administeredLibraries | async).length">
+  <ng-template #hasLibraries>
     <ul>
       <li *ngFor="let library of lendtomeService.administeredLibraries | async">
         {{library.id}} {{library.name}}
       </li>
     </ul>
-  </div>
+  </ng-template>
+
+  <ng-template #noLibraries>
+    You don't have any libraries yet!
+  </ng-template>
+
 </ng-template>
