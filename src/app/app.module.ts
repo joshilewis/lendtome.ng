@@ -19,6 +19,7 @@ import { TokenInterceptor } from './core/token.interceptor';
 import { LendtomeService } from './lendtome.service';
 import { AuthService } from './core/auth.service';
 import { AuthGuard } from './core/auth.guard';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AuthGuard } from './core/auth.guard';
     HowItWorksComponent,
     GetStartedComponent,
     LibrariesComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
