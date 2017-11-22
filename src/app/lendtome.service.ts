@@ -9,18 +9,19 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { AuthService } from './core/auth.service';
 import { retry } from 'rxjs/operators/retry';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class LendtomeService {
-  apiBase = 'https://dev.lend-to.me/api/';
   administeredLibraries: Observable<LibrarySearchResult[]>;
   constructor(
     private persistenceService: PersistenceService,
     private http: HttpClient,
     private authService: AuthService
   ) {
-        this.administeredLibraries = this.http.get<LibrarySearchResult[]>(
-          'https://dev.lend-to.me/api/libraries/');
+    this.administeredLibraries = this.http.get<LibrarySearchResult[]>(
+      `${environment.apiUrl}/libraries/`
+    );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

@@ -7,5 +7,6 @@ export const environment = {
     projectId: 'lendtome-93c5c',
     storageBucket: 'lendtome-93c5c.appspot.com',
     messagingSenderId: '937784623563'
-  }
+  },
+  apiUrl: 'https://lend-to.me/api',
 };
