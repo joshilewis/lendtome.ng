@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -18,24 +21,24 @@ export class AuthService {
   currentToken: string;
   token: Observable<string>;
   user: Observable<User>;
-  constructor(private afAuth: AngularFireAuth,
-              private afs: AngularFirestore,
-              private router: Router) {
-      //// Get auth data, then get firestore user document || null
-      this.user = this.afAuth.authState
-        .switchMap(user => {
-          if (user) {
-            return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-          } else {
-            return Observable.of(null);
-          }
-        });
-        this.token = this.afAuth.idToken;
-        this.afAuth.idToken.subscribe(token => {
-          this.currentToken = token;
-        });
+  constructor(
+    private afAuth: AngularFireAuth,
+    private afs: AngularFirestore,
+    private router: Router
+  ) {
+    //// Get auth data, then get firestore user document || null
+    this.user = this.afAuth.authState.switchMap(user => {
+      if (user) {
+        return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+      } else {
+        return Observable.of(null);
+      }
+    });
+    this.token = this.afAuth.idToken;
+    this.afAuth.idToken.subscribe(token => {
+      this.currentToken = token;
+    });
   }
-
 
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -48,18 +51,15 @@ export class AuthService {
   }
 
   private oAuthLogin(provider) {
-    return this.afAuth.auth.signInWithPopup(provider)
-      .then((credential) => {
-        credential.user.getIdToken()
-        .then((token) => {
-          console.log('token: ' + token);
-        });
-        this.updateUserData(credential.user);
-      });
+    return this.afAuth.auth.signInWithPopup(provider).then(credential => {
+      this.updateUserData(credential.user);
+    });
   }
   private updateUserData(user) {
     // Sets user data to firestore on login
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${user.uid}`
+    );
     const data: User = {
       uid: user.uid,
       email: user.email,
@@ -70,7 +70,7 @@ export class AuthService {
   }
   signOut() {
     this.afAuth.auth.signOut().then(() => {
-        this.router.navigate(['/']);
+      this.router.navigate(['/']);
     });
   }
 }
