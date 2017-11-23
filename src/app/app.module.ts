@@ -21,6 +21,8 @@ import { AuthGuard } from './core/auth.guard';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { HomeComponent } from './home/home.component';
 import { DefaultGuard } from './core/default.guard';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { MustBeSignedOut } from './core/must-be-signed-out.guard.';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { DefaultGuard } from './core/default.guard';
     LibrariesComponent,
     UserProfileComponent,
     SignInComponent,
-    HomeComponent
+    HomeComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,7 @@ import { DefaultGuard } from './core/default.guard';
     AuthService,
     AuthGuard,
     DefaultGuard,
+    MustBeSignedOut,
   ],
   bootstrap: [AppComponent]
 })
