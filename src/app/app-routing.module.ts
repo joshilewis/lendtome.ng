@@ -9,6 +9,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { HomeComponent } from './home/home.component';
 import { DefaultGuard } from './core/default.guard';
 import { MustBeSignedOut } from './core/must-be-signed-out.guard.';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent, canActivate: [MustBeSignedOut] },
   { path: 'libraries', component: LibrariesComponent, canActivate: [AuthGuard]  },
   { path: 'home', component: HomeComponent, canActivate: [DefaultGuard]  },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]  },
 ];
 
 @NgModule({
