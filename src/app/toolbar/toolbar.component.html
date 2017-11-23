@@ -1,8 +1,8 @@
 <div>
   <mat-toolbar color="primary">
-      <span>lend-to.me</span>
-      <span class="example-fill-remaining-space"></span>
-      <!-- <img [src]="user.photoURL" *ngIf="authService.user | async as user"> -->
-      <span *ngIf="authService.user | async as user">{{user.displayName}}</span>
+      <span (click)="router.navigateByUrl('/home')">lend-to.me</span>
+    <span class="example-fill-remaining-space"></span>
+    <!-- <img [src]="user.photoURL" *ngIf="authService.user | async as user"> -->
+    <span *ngIf="authService.user | async as user">{{user.displayName}}</span>
   </mat-toolbar>
 </div>
