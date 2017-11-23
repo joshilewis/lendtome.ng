@@ -1,3 +1,7 @@
-<p>
-  profile works!
-</p>
+<div style="text-align: center">
+  <h3>Your Profile</h3>
+</div>
+<div style="text-align: center" *ngIf="authService.user | async as user">
+  <p>You're currently signed in as {{user.displayName}}</p>
+  <button mat-raised-button color="primary" (click)="authService.signOut()" >Sign Out</button>
+</div>

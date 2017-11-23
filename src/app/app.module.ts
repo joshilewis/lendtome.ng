@@ -22,7 +22,6 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { HomeComponent } from './home/home.component';
 import { DefaultGuard } from './core/default.guard';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import { MustBeSignedOut } from './core/must-be-signed-out.guard.';
 import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
@@ -56,7 +55,6 @@ import { ProfileComponent } from './profile/profile.component';
     AuthService,
     AuthGuard,
     DefaultGuard,
-    MustBeSignedOut,
   ],
   bootstrap: [AppComponent]
 })
