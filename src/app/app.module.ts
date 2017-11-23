@@ -9,7 +9,7 @@ import { PersistenceModule } from 'angular-persistence';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { MaterialModuleModule } from './/material-module.module';
-import { HomeComponent } from './home/home.component';
+import { IndexComponent } from './index/index.component';
 import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 import { LibrariesComponent } from './libraries/libraries.component';
 import { CoreModule } from './core/core.module';
@@ -25,10 +25,12 @@ import { DefaultGuard } from './core/default.guard';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    IndexComponent,
     HowItWorksComponent,
     LibrariesComponent,
     UserProfileComponent,
+    SignInComponent,
+    SignedInHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { DefaultGuard } from './core/default.guard';
     LendtomeService,
     AuthService,
     AuthGuard,
+    DefaultGuard,
   ],
   bootstrap: [AppComponent]
 })
