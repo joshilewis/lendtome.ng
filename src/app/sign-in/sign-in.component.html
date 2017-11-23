@@ -1,1 +1,14 @@
-<h3>Coming Soon!</h3>
+<div style="text-align: center">
+  <h3>Sign In!</h3>
+</div>
+<div style="text-align: center">
+  <p>Choose which provider to use to sign-in</p>
+</div>
+<div style="display: flex; justify-content: space-between">
+  <div>
+    <button mat-raised-button color="primary" (click)="authService.googleLogin()">Google</button>
+  </div>
+  <div>
+    <button mat-raised-button color="primary" (click)="authService.facebookLogin()">Facebook</button>
+  </div>
+</div>
