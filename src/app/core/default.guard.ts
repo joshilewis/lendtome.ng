@@ -16,7 +16,7 @@ export class DefaultGuard implements CanActivate {
            .map(user => !!user)
            .do(loggedIn => {
              if (!loggedIn) {
-               this.router.navigate(['/home']);
+               this.router.navigate(['/index']);
              }
          });
   }

@@ -19,7 +19,7 @@ import { LendtomeService } from './lendtome.service';
 import { AuthService } from './core/auth.service';
 import { AuthGuard } from './core/auth.guard';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { SignedInHomeComponent } from './signed-in-home/signed-in-home.component';
+import { HomeComponent } from './home/home.component';
 import { DefaultGuard } from './core/default.guard';
 
 @NgModule({
@@ -30,7 +30,7 @@ import { DefaultGuard } from './core/default.guard';
     LibrariesComponent,
     UserProfileComponent,
     SignInComponent,
-    SignedInHomeComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,

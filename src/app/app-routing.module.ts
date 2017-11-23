@@ -6,19 +6,17 @@ import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 import { LibrariesComponent } from './libraries/libraries.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { SignedInHomeComponent } from './signed-in-home/signed-in-home.component';
+import { HomeComponent } from './home/home.component';
 import { DefaultGuard } from './core/default.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'signed-in', pathMatch: 'full' },
-  // { path: '', component: SignedInindexComponent, canActivate: [DefaultGuard]  },
-  // { path: '**', redirectTo: 'signed-in', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'user', component: UserProfileComponent },
   { path: 'index', component: IndexComponent },
   { path: 'how-it-works', component: HowItWorksComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'libraries', component: LibrariesComponent, canActivate: [AuthGuard]  },
-  { path: 'signed-in', component: SignedInHomeComponent, canActivate: [DefaultGuard]  },
+  { path: 'home', component: HomeComponent, canActivate: [DefaultGuard]  },
 ];
 
 @NgModule({
