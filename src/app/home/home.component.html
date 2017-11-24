@@ -9,6 +9,17 @@
 </ng-template>
 
 <ng-template #loaded>
+
+  <div>
+      <mat-form-field  hintLabel="Add a book by ISBN Number">
+          <input matInput placeholder="ISBN Number" name="isbn" >
+        </mat-form-field>
+        <button mat-mini-fab color="primary">
+            <mat-icon svgIcon="magnify">
+            </mat-icon>
+        </button>
+  </div>
+
   <div *ngIf="(lendtomeService.books | async)?.length == 0 then noBooks else books">
   </div>
   <ng-template #noBooks>
