@@ -16,12 +16,15 @@ interface User {
   displayName?: string;
   favoriteColor?: string;
 }
+
+type SignOutCallback = () => void;
 @Injectable()
 export class AuthService {
   currentToken: string;
   currentUser: User;
   token: Observable<string>;
   user: Observable<User>;
+  private signoutCallbacks: Array<SignOutCallback> = [];
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
@@ -72,9 +75,16 @@ export class AuthService {
     };
     return userRef.set(data);
   }
+
   signOut() {
+    this.signoutCallbacks.forEach(callback => callback());
+    this.signoutCallbacks = [];
     this.afAuth.auth.signOut().then(() => {
       this.router.navigate(['/']);
     });
   }
+  addSignOutCallback(signoutCallback: SignOutCallback) {
+    this.signoutCallbacks.push(signoutCallback);
+  }
+
 }

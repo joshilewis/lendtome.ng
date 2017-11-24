@@ -20,11 +20,23 @@ export class LendtomeService {
     private persistenceService: PersistenceService,
     private http: HttpClient,
     private authService: AuthService
-  ) { }
+  ) {
+    authService.addSignOutCallback(persistenceService.remove(libraryIdkey, StorageType.LOCAL));
+  }
 
   public initialiseLibrary(): void {
     this.libraryId = this.persistenceService.get(libraryIdkey, StorageType.LOCAL);
     if (!this.libraryId) {
+      this.getLibraryIdFromApi();
+    }
+  }
+
+private clearLibraryId(): void {
+  this.persistenceService.remove(libraryIdkey, StorageType.LOCAL);
+}
+
+  private getLibraryIdFromApi(): void {
+
       this.http.get<LibrarySearchResult[]>(
         `${environment.apiUrl}/libraries/`
       ).subscribe(libraries => {
@@ -37,7 +49,6 @@ export class LendtomeService {
         }
       });
     }
-  }
 
   private openNewLibrary(): void {
     this.http
