@@ -19,6 +19,7 @@ interface User {
 @Injectable()
 export class AuthService {
   currentToken: string;
+  currentUser: User;
   token: Observable<string>;
   user: Observable<User>;
   constructor(
@@ -37,6 +38,9 @@ export class AuthService {
     this.token = this.afAuth.idToken;
     this.afAuth.idToken.subscribe(token => {
       this.currentToken = token;
+    });
+    this.user.subscribe(user => {
+      if (user) {this.currentUser = user; }
     });
   }
 

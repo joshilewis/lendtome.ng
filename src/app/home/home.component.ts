@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../core/auth.service';
+import { LendtomeService } from '../lendtome.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, public lendtomeService: LendtomeService) {
+  }
 
   ngOnInit() {
+    this.lendtomeService.initialiseLibrary();
   }
 
 }

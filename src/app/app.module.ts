@@ -11,7 +11,6 @@ import { AppRoutingModule } from './/app-routing.module';
 import { MaterialModuleModule } from './/material-module.module';
 import { IndexComponent } from './index/index.component';
 import { HowItWorksComponent } from './how-it-works/how-it-works.component';
-import { LibrariesComponent } from './libraries/libraries.component';
 import { CoreModule } from './core/core.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { TokenInterceptor } from './core/token.interceptor';
@@ -29,7 +28,6 @@ import { ProfileComponent } from './profile/profile.component';
     AppComponent,
     IndexComponent,
     HowItWorksComponent,
-    LibrariesComponent,
     UserProfileComponent,
     SignInComponent,
     HomeComponent,

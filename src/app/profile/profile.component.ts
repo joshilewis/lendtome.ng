@@ -8,7 +8,6 @@ import { AuthService } from '../core/auth.service';
 })
 export class ProfileComponent implements OnInit {
   constructor(public authService: AuthService) {
-    authService.user.subscribe(user => console.log(user));
   }
 
   ngOnInit() {}

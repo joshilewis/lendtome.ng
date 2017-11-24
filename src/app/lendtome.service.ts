@@ -10,18 +10,52 @@ import { of } from 'rxjs/observable/of';
 import { AuthService } from './core/auth.service';
 import { retry } from 'rxjs/operators/retry';
 import { environment } from '../environments/environment';
+import { StorageType } from 'angular-persistence/src/constants/persistence.storage_type';
 
+const libraryIdkey = 'libraryId';
 @Injectable()
 export class LendtomeService {
-  administeredLibraries: Observable<LibrarySearchResult[]>;
+  private libraryId: string;
   constructor(
     private persistenceService: PersistenceService,
     private http: HttpClient,
     private authService: AuthService
-  ) {
-    this.administeredLibraries = this.http.get<LibrarySearchResult[]>(
-      `${environment.apiUrl}/libraries/`
-    );
+  ) { }
+
+  public initialiseLibrary(): void {
+    this.libraryId = this.persistenceService.get(libraryIdkey, StorageType.LOCAL);
+    if (!this.libraryId) {
+      this.http.get<LibrarySearchResult[]>(
+        `${environment.apiUrl}/libraries/`
+      ).subscribe(libraries => {
+        if (libraries.length === 0) {
+          this.openNewLibrary();
+        } else {
+          this.persistenceService.set(libraryIdkey, libraries[0].id, {
+            type: StorageType.LOCAL
+          });
+        }
+      });
+    }
+  }
+
+  private openNewLibrary(): void {
+    this.http
+      .post(`${environment.apiUrl}/libraries/`, {
+        name: this.authService.currentUser.displayName,
+        picture: this.authService.currentUser.photoURL
+      })
+      .subscribe(
+        result => {
+          this.persistenceService.set(libraryIdkey, result, {
+            type: StorageType.LOCAL
+          });
+          this.libraryId = result.toString();
+        },
+        err => {
+          console.log(err);
+        }
+      );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
