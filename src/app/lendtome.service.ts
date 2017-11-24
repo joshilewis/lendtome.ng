@@ -22,9 +22,9 @@ export class LendtomeService {
     private http: HttpClient,
     private authService: AuthService
   ) {
-    authService.addSignOutCallback(
-      persistenceService.remove(libraryIdkey, StorageType.LOCAL)
-    );
+    // authService.addSignOutCallback(
+    //   persistenceService.remove(libraryIdkey, StorageType.LOCAL)
+    // );
     this.books = this.http.get<BookSearchResult[]>(`${environment.apiUrl}/libraries/${this.libraryId}/books`);
   }
 
