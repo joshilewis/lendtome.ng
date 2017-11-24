@@ -1,0 +1,20 @@
+<div style="text-align: center">
+  <h3>Add books</h3>
+</div>
+<div style="text-align: center">
+  These books matched the ISBN you entered
+</div>
+<div>
+  <div style="text-align: center" *ngFor="let book of books | async">
+    <mat-card>
+      <mat-card-title>{{book.volumeInfo.title}}</mat-card-title>
+      <mat-card-subtitle>{{book.volumeInfo.authors}}</mat-card-subtitle>
+      <img mat-card-img src="{{book.volumeInfo.imageLinks.thumbnail}}">
+      <div>
+        <mat-card-actions>
+          <button mat-button color="primary">Add to library</button>
+        </mat-card-actions>
+      </div>
+    </mat-card>
+  </div>
+</div>

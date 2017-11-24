@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule  } from '@angular/common/http';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -22,6 +22,8 @@ import { HomeComponent } from './home/home.component';
 import { DefaultGuard } from './core/default.guard';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AddBookComponent } from './add-book/add-book.component';
+import { GoogleBooksService } from './googlebooks/google-books-service.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { ProfileComponent } from './profile/profile.component';
     HomeComponent,
     ToolbarComponent,
     ProfileComponent,
+    AddBookComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { ProfileComponent } from './profile/profile.component';
     MaterialModuleModule,
     AngularFireModule.initializeApp(environment.firebase, 'lend-to.me'),
     CoreModule,
-    PersistenceModule
+    PersistenceModule,
+    HttpClientJsonpModule,
   ],
   providers: [
     {
@@ -53,6 +57,7 @@ import { ProfileComponent } from './profile/profile.component';
     AuthService,
     AuthGuard,
     DefaultGuard,
+    GoogleBooksService,
   ],
   bootstrap: [AppComponent]
 })
