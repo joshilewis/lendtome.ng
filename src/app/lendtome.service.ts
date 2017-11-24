@@ -16,30 +16,36 @@ const libraryIdkey = 'libraryId';
 @Injectable()
 export class LendtomeService {
   private libraryId: string;
+  public books: Observable<BookSearchResult[]>;
   constructor(
     private persistenceService: PersistenceService,
     private http: HttpClient,
     private authService: AuthService
   ) {
-    authService.addSignOutCallback(persistenceService.remove(libraryIdkey, StorageType.LOCAL));
+    authService.addSignOutCallback(
+      persistenceService.remove(libraryIdkey, StorageType.LOCAL)
+    );
+    this.books = this.http.get<BookSearchResult[]>(`${environment.apiUrl}/libraries/${this.libraryId}/books`);
   }
 
   public initialiseLibrary(): void {
-    this.libraryId = this.persistenceService.get(libraryIdkey, StorageType.LOCAL);
+    this.libraryId = this.persistenceService.get(
+      libraryIdkey,
+      StorageType.LOCAL
+    );
     if (!this.libraryId) {
       this.getLibraryIdFromApi();
     }
   }
 
-private clearLibraryId(): void {
-  this.persistenceService.remove(libraryIdkey, StorageType.LOCAL);
-}
+  private clearLibraryId(): void {
+    this.persistenceService.remove(libraryIdkey, StorageType.LOCAL);
+  }
 
   private getLibraryIdFromApi(): void {
-
-      this.http.get<LibrarySearchResult[]>(
-        `${environment.apiUrl}/libraries/`
-      ).subscribe(libraries => {
+    this.http
+      .get<LibrarySearchResult[]>(`${environment.apiUrl}/libraries/`)
+      .subscribe(libraries => {
         if (libraries.length === 0) {
           this.openNewLibrary();
         } else {
@@ -48,7 +54,7 @@ private clearLibraryId(): void {
           });
         }
       });
-    }
+  }
 
   private openNewLibrary(): void {
     this.http

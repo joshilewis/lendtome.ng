@@ -4,6 +4,7 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatToolbarModule,
+  MatCardModule,
 } from '@angular/material';
 import {
   MatDialogModule,
@@ -14,8 +15,8 @@ import {
 } from '@angular/material/dialog';
 
 @NgModule({
-  imports: [CommonModule, MatButtonModule, MatToolbarModule, MatDialogModule, ],
-  exports: [MatButtonModule, MatToolbarModule, MatDialogModule, MatDialogActions, MatDialogContent, ],
+  imports: [CommonModule, MatButtonModule, MatToolbarModule, MatDialogModule, MatCardModule, ],
+  exports: [MatButtonModule, MatToolbarModule, MatDialogModule, MatDialogActions, MatDialogContent, MatCardModule, ],
   declarations: []
 })
 export class MaterialModuleModule {}

@@ -1,6 +1,26 @@
 <div style="text-align: center">
   <h3>Dashboard</h3>
 </div>
-<div style="text-align: center">
-  <p>Hold tight, we're grabbing your stuff!</p>
+<div *ngIf="lendtomeService.books | async; then loaded else loading">
 </div>
+
+<ng-template #loading style="text-align: center">
+  <p>Hold tight, we're grabbing your stuff!</p>
+</ng-template>
+
+<ng-template #loaded>
+  <div *ngIf="(lendtomeService.books | async)?.length == 0 then noBooks else books">
+  </div>
+  <ng-template #noBooks>
+    You don't have any books in your library! ;( Add some here
+  </ng-template>
+
+  <ng-template #books>
+    <div *ngFor="let book of lendtomeService.books | async">
+      <mat-card>
+        <mat-card-title>{{book.title}}</mat-card-title>
+        <mat-card-subtitle>{{book.author}}</mat-card-subtitle>
+      </mat-card>
+    </div>
+  </ng-template>
+</ng-template>
