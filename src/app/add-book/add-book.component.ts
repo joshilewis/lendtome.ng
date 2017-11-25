@@ -5,6 +5,7 @@ import { GoogleBook } from '../googlebooks/googlebook';
 import { GoogleBooksService } from '../googlebooks/google-books-service.service';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LendtomeService } from '../lendtome.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-book',
@@ -17,10 +18,10 @@ export class AddBookComponent implements OnInit {
     private route: ActivatedRoute,
     private googleBooksService: GoogleBooksService,
     public lendtomeService: LendtomeService,
+    private router: Router,
   ) {
     this.books = googleBooksService
-      .searchBooks(this.route.snapshot.paramMap.get('isbn'))
-      .pipe(tap(book => console.log(book)));
+      .searchBooks(this.route.snapshot.paramMap.get('isbn'));
   }
 
   ngOnInit() {
@@ -28,7 +29,10 @@ export class AddBookComponent implements OnInit {
   }
 
   public addBook(bookToAdd: GoogleBook): void {
-    this.lendtomeService.addBook(bookToAdd);
-
+    const promise = this.lendtomeService.addBook(bookToAdd);
+      promise.then(res => {
+          this.router.navigateByUrl('home');
+        })
+      .catch(err => console.log(err));
   }
 }

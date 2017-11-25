@@ -12,6 +12,8 @@ import { retry } from 'rxjs/operators/retry';
 import { environment } from '../environments/environment';
 import { StorageType } from 'angular-persistence/src/constants/persistence.storage_type';
 import { GoogleBook } from './googlebooks/googlebook';
+import 'rxjs/add/operator/toPromise';
+import { Promise } from 'q';
 
 const libraryIdkey = 'libraryId';
 @Injectable()
@@ -78,7 +80,7 @@ export class LendtomeService {
       );
   }
 
-  public addBook(book: GoogleBook): void {
+  public addBook(book: GoogleBook): Promise<Object> {
     const bookToAdd = {
       title: book.volumeInfo.title,
       author: book.volumeInfo.authors.join(),
@@ -86,17 +88,22 @@ export class LendtomeService {
         .identifier,
       publishYear: +book.volumeInfo.publishedDate.substr(0, 4)
     };
-    this.http
-      .post(
-        `${environment.apiUrl}/libraries/${this.libraryId}/books/add/`,
-        bookToAdd
-      )
-      .subscribe(
-        result => {},
-        err => {
-          console.log(err);
-        }
-      );
+    const promise = Promise<Object>((resolve, reject) => {
+      this.http
+        .post(
+          `${environment.apiUrl}/libraries/${this.libraryId}/books/add/`,
+          bookToAdd
+        )
+        .toPromise()
+        .then(res => {
+          return resolve(res);
+        })
+        .catch(err => {
+          console.log(err.message);
+          return reject;
+        });
+    });
+    return promise;
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
