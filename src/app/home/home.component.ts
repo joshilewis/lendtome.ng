@@ -10,11 +10,14 @@ import { LendtomeService } from '../lendtome.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router, public lendtomeService: LendtomeService) {
+  constructor(public router: Router, public lendtomeService: LendtomeService) {
   }
 
   ngOnInit() {
     this.lendtomeService.initialiseLibrary();
   }
 
+  public searchByIsbn(isbn: string): void {
+    console.log(isbn);
+  }
 }
