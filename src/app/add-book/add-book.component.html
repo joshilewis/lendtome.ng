@@ -12,7 +12,7 @@
       <img mat-card-img src="{{book.volumeInfo.imageLinks.thumbnail}}">
       <div>
         <mat-card-actions>
-          <button mat-button color="primary">Add to library</button>
+          <button mat-button color="primary" (click)="lendtomeService.addBook(book)">Add to library</button>
         </mat-card-actions>
       </div>
     </mat-card>

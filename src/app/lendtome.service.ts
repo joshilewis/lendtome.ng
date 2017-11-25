@@ -11,6 +11,7 @@ import { AuthService } from './core/auth.service';
 import { retry } from 'rxjs/operators/retry';
 import { environment } from '../environments/environment';
 import { StorageType } from 'angular-persistence/src/constants/persistence.storage_type';
+import { GoogleBook } from './googlebooks/googlebook';
 
 const libraryIdkey = 'libraryId';
 @Injectable()
@@ -25,7 +26,9 @@ export class LendtomeService {
     // authService.addSignOutCallback(
     //   persistenceService.remove(libraryIdkey, StorageType.LOCAL)
     // );
-    this.books = this.http.get<BookSearchResult[]>(`${environment.apiUrl}/libraries/${this.libraryId}/books`);
+    this.books = this.http.get<BookSearchResult[]>(
+      `${environment.apiUrl}/libraries/${this.libraryId}/books`
+    );
   }
 
   public initialiseLibrary(): void {
@@ -69,6 +72,27 @@ export class LendtomeService {
           });
           this.libraryId = result.toString();
         },
+        err => {
+          console.log(err);
+        }
+      );
+  }
+
+  public addBook(book: GoogleBook): void {
+    const bookToAdd = {
+      title: book.volumeInfo.title,
+      author: book.volumeInfo.authors.join(),
+      isbn: book.volumeInfo.industryIdentifiers.find(x => x.type === 'ISBN_13')
+        .identifier,
+      publishYear: +book.volumeInfo.publishedDate.substr(0, 4)
+    };
+    this.http
+      .post(
+        `${environment.apiUrl}/libraries/${this.libraryId}/books/add/`,
+        bookToAdd
+      )
+      .subscribe(
+        result => {},
         err => {
           console.log(err);
         }
