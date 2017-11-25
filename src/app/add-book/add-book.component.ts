@@ -29,8 +29,8 @@ export class AddBookComponent implements OnInit {
   }
 
   public addBook(bookToAdd: GoogleBook): void {
-    const promise = this.lendtomeService.addBook(bookToAdd);
-      promise.then(res => {
+    this.lendtomeService.addBook(bookToAdd)
+      .then(res => {
           this.router.navigateByUrl('home');
         })
       .catch(err => console.log(err));

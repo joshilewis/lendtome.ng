@@ -28,9 +28,7 @@ export class LendtomeService {
     // authService.addSignOutCallback(
     //   persistenceService.remove(libraryIdkey, StorageType.LOCAL)
     // );
-    this.books = this.http.get<BookSearchResult[]>(
-      `${environment.apiUrl}/libraries/${this.libraryId}/books`
-    );
+    this.books = this.listBooks();
   }
 
   public initialiseLibrary(): void {
@@ -45,6 +43,16 @@ export class LendtomeService {
 
   private clearLibraryId(): void {
     this.persistenceService.remove(libraryIdkey, StorageType.LOCAL);
+  }
+
+  private listBooks(): Observable<BookSearchResult[]> {
+    return this.http.get<BookSearchResult[]>(
+      `${environment.apiUrl}/libraries/${this.libraryId}/books`
+  );
+  }
+
+  public refreshBooks(): void {
+    this.books = this.listBooks();
   }
 
   private getLibraryIdFromApi(): void {
@@ -93,6 +101,30 @@ export class LendtomeService {
         .post(
           `${environment.apiUrl}/libraries/${this.libraryId}/books/add/`,
           bookToAdd
+        )
+        .toPromise()
+        .then(res => {
+          return resolve(res);
+        })
+        .catch(err => {
+          console.log(err.message);
+          return reject;
+        });
+    });
+    return promise;
+  }
+
+  public removeBook(book: BookSearchResult): Promise<Object> {
+    const promise = Promise<Object>((resolve, reject) => {
+      this.http
+        .post(
+          `${environment.apiUrl}/libraries/${this.libraryId}/books/remove/`,
+          {
+            title: book.title,
+            author: book.author,
+            isbn: book.isbn,
+            publishYear: book.publishYear
+          }
         )
         .toPromise()
         .then(res => {

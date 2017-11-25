@@ -1,36 +1,45 @@
 <div style="text-align: center">
   <h3>Dashboard</h3>
 </div>
-<div *ngIf="lendtomeService.books | async; then loaded else loading">
+<div *ngIf="lendtomeService.books | async; then loaded else loading" style="text-align: center">
 </div>
 
-<ng-template #loading style="text-align: center">
-  <p>Hold tight, we're grabbing your stuff!</p>
+<ng-template #loading>
+  <div>
+    <p>Hold tight, we're grabbing your stuff!</p>
+  </div>
 </ng-template>
 
 <ng-template #loaded>
 
   <div>
-      <mat-form-field  hintLabel="Add a book by ISBN Number">
-          <input matInput placeholder="ISBN Number" name="isbn" #isbn >
-        </mat-form-field>
-          <button mat-mini-fab color="primary" (click)="router.navigateByUrl('addbook/' + isbn.value)">
-            <mat-icon svgIcon="magnify">
-            </mat-icon>
-        </button>
+    <mat-form-field hintLabel="Add a book by ISBN Number">
+      <input matInput placeholder="ISBN Number" name="isbn" #isbn>
+    </mat-form-field>
+    <button mat-mini-fab color="primary" (click)="router.navigateByUrl('addbook/' + isbn.value)">
+      <mat-icon svgIcon="magnify">
+      </mat-icon>
+    </button>
   </div>
 
   <div *ngIf="(lendtomeService.books | async)?.length == 0 then noBooks else books">
   </div>
   <ng-template #noBooks>
-    You don't have any books in your library! ;( Add some here
+    <p>You don't have any books in your library! ;(</p>
+    <p>Use the form above to search for books to add to your library</p>
   </ng-template>
 
   <ng-template #books>
-    <div *ngFor="let book of lendtomeService.books | async">
+    <div *ngFor="let book of lendtomeService.books | async" style="text-align: center">
       <mat-card>
         <mat-card-title>{{book.title}}</mat-card-title>
         <mat-card-subtitle>{{book.author}}</mat-card-subtitle>
+        <mat-card-actions>
+          <button mat-mini-fab color="primary" (click)="removeBook(book)">
+            <mat-icon svgIcon="minus-circle">
+            </mat-icon>
+          </button>
+        </mat-card-actions>
       </mat-card>
     </div>
   </ng-template>
