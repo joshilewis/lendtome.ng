@@ -12,7 +12,10 @@
       <img mat-card-img src="{{book.volumeInfo.imageLinks.thumbnail}}">
       <div>
         <mat-card-actions>
-          <button mat-button color="primary" (click)="addBook(book)">Add to library</button>
+            <button mat-mini-fab color="primary" >
+                <mat-icon svgIcon="plus-circle">
+                </mat-icon>
+            </button>
         </mat-card-actions>
       </div>
     </mat-card>
