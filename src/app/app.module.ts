@@ -24,6 +24,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddBookComponent } from './add-book/add-book.component';
 import { GoogleBooksService } from './googlebooks/google-books-service.service';
+import { WA18396Interceptor } from './core/WA18396.interceptor';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,11 @@ import { GoogleBooksService } from './googlebooks/google-books-service.service';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: WA18396Interceptor,
       multi: true,
     },
     LendtomeService,
