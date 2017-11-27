@@ -5,19 +5,21 @@
   These books matched the ISBN you entered
 </div>
 <div>
-  <div style="text-align: center" *ngFor="let book of books | async">
-    <mat-card>
-      <mat-card-title>{{book.volumeInfo.title}}</mat-card-title>
-      <mat-card-subtitle>{{book.volumeInfo.authors}}</mat-card-subtitle>
-      <img mat-card-img src="{{book.volumeInfo.imageLinks.thumbnail}}">
-      <div>
-        <mat-card-actions>
-          <button mat-mini-fab color color="primary" (click)="addBook(book)">
+  <div *ngFor="let book of books | async" style="display: flex; flex-direction: row; margin-top: 5px; margin-bottom: 5px">
+    <div>
+      <img src="{{book.volumeInfo.imageLinks.thumbnail}}">
+    </div>
+    <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap">
+      <div style="margin-bottom: 5px">
+        <div style="font-weight: 700">{{book.volumeInfo.title}}</div>
+        <div>{{book.volumeInfo.authors[0]}}</div>
+        <div>
+          <button mat-mini-fab color="primary" (click)="addBook(book)">
             <mat-icon svgIcon="plus-circle">
             </mat-icon>
           </button>
-        </mat-card-actions>
+        </div>
       </div>
-    </mat-card>
+    </div>
   </div>
 </div>

@@ -91,7 +91,7 @@ export class LendtomeService {
   public addBook(book: GoogleBook): Promise<Object> {
     const bookToAdd = {
       title: book.volumeInfo.title,
-      author: book.volumeInfo.authors.join(),
+      author: book.volumeInfo.authors[0],
       isbn: book.volumeInfo.industryIdentifiers.find(x => x.type === 'ISBN_13')
         .identifier,
       publishYear: +book.volumeInfo.publishedDate.substr(0, 4),
@@ -124,7 +124,8 @@ export class LendtomeService {
             title: book.title,
             author: book.author,
             isbn: book.isbn,
-            publishYear: book.publishYear
+            publishYear: book.publishYear,
+            coverPicture: book.coverPicture
           }
         )
         .toPromise()
