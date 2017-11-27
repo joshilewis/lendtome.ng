@@ -6,4 +6,5 @@ export class BookSearchResult {
   author: string;
   isbn: string;
   publishYear: number;
+  coverPicture: string;
 }

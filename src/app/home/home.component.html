@@ -34,6 +34,7 @@
       <mat-card>
         <mat-card-title>{{book.title}}</mat-card-title>
         <mat-card-subtitle>{{book.author}}</mat-card-subtitle>
+        <img mat-card-image src="{{book.coverPicture}}">
         <mat-card-actions>
           <button mat-mini-fab color="primary" (click)="removeBook(book)">
             <mat-icon svgIcon="minus-circle">

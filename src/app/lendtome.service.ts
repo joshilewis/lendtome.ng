@@ -94,7 +94,8 @@ export class LendtomeService {
       author: book.volumeInfo.authors.join(),
       isbn: book.volumeInfo.industryIdentifiers.find(x => x.type === 'ISBN_13')
         .identifier,
-      publishYear: +book.volumeInfo.publishedDate.substr(0, 4)
+      publishYear: +book.volumeInfo.publishedDate.substr(0, 4),
+      coverPicture: book.volumeInfo.imageLinks.thumbnail,
     };
     const promise = Promise<Object>((resolve, reject) => {
       this.http
