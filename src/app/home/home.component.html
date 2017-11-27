@@ -13,10 +13,10 @@
 <ng-template #loaded>
 
   <div>
-    <mat-form-field hintLabel="Add a book by ISBN Number">
-      <input matInput placeholder="ISBN Number" name="isbn" #isbn>
+    <mat-form-field hintLabel="Search by title, author, ISBN...">
+      <input matInput placeholder="Search Term" name="searchTerm" #searchTerm>
     </mat-form-field>
-    <button mat-mini-fab color="primary" (click)="router.navigateByUrl('addbook/' + isbn.value)">
+    <button mat-mini-fab color="primary" (click)="router.navigateByUrl('addbook/' + searchTerm.value)">
       <mat-icon svgIcon="magnify">
       </mat-icon>
     </button>

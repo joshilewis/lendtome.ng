@@ -6,13 +6,13 @@ import { GoogleBook } from './googlebook';
 @Injectable()
 export class GoogleBooksService {
 
-  private API_PATH = 'https://www.googleapis.com/books/v1/volumes?q=isbn';
+  private API_PATH = 'https://www.googleapis.com/books/v1/volumes?q=';
 
     constructor(private http: HttpClient, ) {}
 
-    searchBooks(isbn: string): Observable<GoogleBook[]> {
+    searchBooks(searchTerm: string): Observable<GoogleBook[]> {
       return this.http
-        .jsonp<{ items: GoogleBook[] }>(`${this.API_PATH}${isbn}`, `callback`)
+        .jsonp<{ items: GoogleBook[] }>(`${this.API_PATH}${searchTerm}&maxResults=10`, `callback`)
         .map(books => books.items || []);
     }
 
