@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'home', component: HomeComponent, canActivate: [DefaultGuard]  },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]  },
-  { path: 'addbook/:isbn', component: AddBookComponent, canActivate: [AuthGuard]  },
+  { path: 'addbook/:searchTerm', component: AddBookComponent, canActivate: [AuthGuard]  },
 ];
 
 @NgModule({

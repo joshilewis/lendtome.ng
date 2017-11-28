@@ -13,15 +13,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-book.component.css']
 })
 export class AddBookComponent implements OnInit {
-  books: Observable<GoogleBook[]>;
+  public books: Observable<GoogleBook[]>;
+  public searchTerm: string;
   constructor(
     private route: ActivatedRoute,
     private googleBooksService: GoogleBooksService,
     public lendtomeService: LendtomeService,
-    private router: Router,
+    private router: Router
   ) {
-    this.books = googleBooksService
-      .searchBooks(this.route.snapshot.paramMap.get('isbn'));
+    this.searchTerm = this.route.snapshot.paramMap.get('searchTerm');
+    this.books = googleBooksService.searchBooks(this.searchTerm);
   }
 
   ngOnInit() {
@@ -29,10 +30,11 @@ export class AddBookComponent implements OnInit {
   }
 
   public addBook(bookToAdd: GoogleBook): void {
-    this.lendtomeService.addBook(bookToAdd)
+    this.lendtomeService
+      .addBook(bookToAdd)
       .then(res => {
-          this.router.navigateByUrl('home');
-        })
+        this.router.navigateByUrl('home');
+      })
       .catch(err => console.log(err));
   }
 }

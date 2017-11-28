@@ -2,22 +2,24 @@
   <h3>Add books</h3>
 </div>
 <div style="text-align: center">
-  These books matched the search term you entered
+  This is what we found for '{{searchTerm}}'
 </div>
 <div>
-  <div *ngFor="let book of books | async" style="display: flex; flex-direction: row; margin-top: 5px; margin-bottom: 5px">
-    <div>
-      <img src="{{book.volumeInfo.imageLinks.thumbnail}}">
-    </div>
-    <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap">
-      <div style="margin-bottom: 5px">
-        <div style="font-weight: 700">{{book.volumeInfo.title}}</div>
-        <div>{{book.volumeInfo.authors[0]}}</div>
-        <div>
-          <button mat-mini-fab color="primary" (click)="addBook(book)">
-            <mat-icon svgIcon="plus-circle">
-            </mat-icon>
-          </button>
+  <div *ngFor="let book of books | async" style="display: flex; flex-direction: row; margin-top: 5px; margin-bottom: 5px; overflow-x: scroll;overflow-y: hidden; white-space: nowrap;">
+    <div style="display: inline-block;">
+      <div>
+        <img src="{{book.volumeInfo.imageLinks.thumbnail}}">
+      </div>
+      <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap">
+        <div style="margin-bottom: 5px">
+          <div style="font-weight: 700">{{book.volumeInfo.title}}</div>
+          <div>{{book.volumeInfo.authors[0]}}</div>
+          <div>
+            <button mat-mini-fab color="primary" (click)="addBook(book)">
+              <mat-icon svgIcon="plus-circle">
+              </mat-icon>
+            </button>
+          </div>
         </div>
       </div>
     </div>

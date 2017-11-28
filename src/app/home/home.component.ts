@@ -16,6 +16,10 @@ export class HomeComponent implements OnInit {
     this.lendtomeService.initialiseLibrary();
   }
 
+  public searchForBooks(searchTerm: string): void {
+    this.router.navigateByUrl('addbook/' + searchTerm);
+  }
+
   public removeBook(book: BookSearchResult): void {
     this.lendtomeService
       .removeBook(book)
