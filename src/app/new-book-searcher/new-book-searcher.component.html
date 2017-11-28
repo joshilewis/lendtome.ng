@@ -1,10 +1,10 @@
-<div style="display: flex; flex-direction: row; align-items: center; justify-content:space-between;">
-  <div style="margin-right: 10%">
-    <mat-form-field hintLabel="Search by title, author, ISBN...">
-      <input matInput placeholder="Add new library book" name="searchTerm" #searchTerm (keydown.enter)="searchForBooks(searchTerm.value)">
+<div style="display: flex; flex-direction: row; align-items: center; justify-content:space-between;width:100%;">
+  <div style="margin-right: 2%; width:100%">
+    <mat-form-field hintLabel="Search by title, author, ISBN etc" style="width:100%">
+      <input matInput placeholder="Search for books to add to your library" name="searchTerm" #searchTerm (keydown.enter)="searchForBooks(searchTerm.value)">
     </mat-form-field>
   </div>
-  <div style="margin-right: 10%">
+  <div style="margin-left: 2%">
     <button mat-mini-fab color="primary" type="submit" (click)="searchForBooks(searchTerm.value)">
       <mat-icon svgIcon="magnify">
       </mat-icon>

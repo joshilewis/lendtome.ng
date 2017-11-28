@@ -2,8 +2,24 @@
   <h3>Dashboard</h3>
 </div>
 
-<div style="display: flex; justify-content: flex-start; flex-direction: column; align-items: center;">
-  <div style="margin-top: 5px; margin-bottom: 5px;">
+<div style="display: flex; justify-content: flex-start; flex-direction: column; align-items: center; width: 100%">
+
+    <div style="display: flex; flex-direction: row; align-items: center; justify-content:space-between; width: 100%" >
+        <div style="margin-right: 2%; align-self:flex-start; width: 100%">
+          <mat-form-field hintLabel="Search by title or author" style="width: 100%">
+            <input matInput placeholder="Search for books in connected libraries" >
+          </mat-form-field>
+        </div>
+        <div style="margin-left: 2%; margin-right: auto">
+          <button mat-mini-fab color="primary" type="submit">
+            <mat-icon svgIcon="magnify">
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+
+
+  <div style="margin-top: 5px; margin-bottom: 5px; width: 100%">
     <app-new-book-searcher></app-new-book-searcher>
   </div>
 
