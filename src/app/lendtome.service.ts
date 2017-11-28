@@ -14,8 +14,8 @@ import { StorageType } from 'angular-persistence/src/constants/persistence.stora
 import { GoogleBook } from './googlebooks/googlebook';
 import 'rxjs/add/operator/toPromise';
 import { Promise } from 'q';
+import { KeyConstants } from './core/key-contstants';
 
-const libraryIdkey = 'libraryId';
 @Injectable()
 export class LendtomeService {
   private libraryId: string;
@@ -33,7 +33,7 @@ export class LendtomeService {
 
   public initialiseLibrary(): void {
     this.libraryId = this.persistenceService.get(
-      libraryIdkey,
+      KeyConstants.libraryId,
       StorageType.LOCAL
     );
     if (!this.libraryId) {
@@ -42,7 +42,7 @@ export class LendtomeService {
   }
 
   private clearLibraryId(): void {
-    this.persistenceService.remove(libraryIdkey, StorageType.LOCAL);
+    this.persistenceService.remove(KeyConstants.libraryId, StorageType.LOCAL);
   }
 
   private listBooks(): Observable<BookSearchResult[]> {
@@ -62,7 +62,7 @@ export class LendtomeService {
         if (libraries.length === 0) {
           this.openNewLibrary();
         } else {
-          this.persistenceService.set(libraryIdkey, libraries[0].id, {
+          this.persistenceService.set(KeyConstants.libraryId, libraries[0].id, {
             type: StorageType.LOCAL
           });
         }
@@ -77,7 +77,7 @@ export class LendtomeService {
       })
       .subscribe(
         result => {
-          this.persistenceService.set(libraryIdkey, result, {
+          this.persistenceService.set(KeyConstants.libraryId, result, {
             type: StorageType.LOCAL
           });
           this.libraryId = result.toString();

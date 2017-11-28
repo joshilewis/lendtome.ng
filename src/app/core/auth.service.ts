@@ -9,26 +9,29 @@ import {
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { PersistenceService } from 'angular-persistence/src/services/persistence.service';
+import { LendtomeService } from '../lendtome.service';
+import { StorageType } from 'angular-persistence';
+import { KeyConstants } from '../core/key-contstants';
+
 interface User {
   uid: string;
   email: string;
   photoURL?: string;
   displayName?: string;
-  favoriteColor?: string;
 }
 
-type SignOutCallback = () => void;
 @Injectable()
 export class AuthService {
   currentToken: string;
   currentUser: User;
   token: Observable<string>;
   user: Observable<User>;
-  private signoutCallbacks: Array<SignOutCallback> = [];
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private persistenceService: PersistenceService
   ) {
     //// Get auth data, then get firestore user document || null
     this.user = this.afAuth.authState.switchMap(user => {
@@ -43,7 +46,9 @@ export class AuthService {
       this.currentToken = token;
     });
     this.user.subscribe(user => {
-      if (user) {this.currentUser = user; }
+      if (user) {
+        this.currentUser = user;
+      }
     });
   }
 
@@ -77,14 +82,9 @@ export class AuthService {
   }
 
   signOut() {
-    this.signoutCallbacks.forEach(callback => callback());
-    this.signoutCallbacks = [];
+    this.persistenceService.remove(KeyConstants.libraryId, StorageType.LOCAL);
     this.afAuth.auth.signOut().then(() => {
       this.router.navigate(['/']);
     });
   }
-  addSignOutCallback(signoutCallback: SignOutCallback) {
-    this.signoutCallbacks.push(signoutCallback);
-  }
-
 }
