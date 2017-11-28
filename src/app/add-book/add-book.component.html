@@ -9,7 +9,7 @@
     <div *ngIf="book.volumeInfo.imageLinks">
       <img src="{{book.volumeInfo.imageLinks.smallThumbnail}}">
     </div>
-    <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap">
+    <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap; align-items:center; justify-content: center;">
       <div style="margin-bottom: 5px">
         <div style="font-weight: 700">{{book.volumeInfo.title}}</div>
         <div>{{book.volumeInfo.authors[0]}}</div>
