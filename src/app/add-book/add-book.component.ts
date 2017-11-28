@@ -33,7 +33,7 @@ export class AddBookComponent implements OnInit {
     this.lendtomeService
       .addBook(bookToAdd)
       .then(res => {
-        this.router.navigateByUrl('home');
+        this.router.navigateByUrl('mybooks');
       })
       .catch(err => console.log(err));
   }

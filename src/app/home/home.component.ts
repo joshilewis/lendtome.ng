@@ -20,12 +20,4 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('addbook/' + searchTerm);
   }
 
-  public removeBook(book: BookSearchResult): void {
-    this.lendtomeService
-      .removeBook(book)
-      .then(res => {
-        this.lendtomeService.refreshBooks();
-      })
-      .catch(err => console.log(err));
-  }
 }
