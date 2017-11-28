@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LendtomeService } from '../lendtome.service';
 import { BookSearchResult } from '../booksearchresult';
+import { NewBookSearcherComponent } from '../new-book-searcher/new-book-searcher.component';
 
 @Component({
   selector: 'app-my-books',

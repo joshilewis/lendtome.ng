@@ -26,6 +26,7 @@ import { AddBookComponent } from './add-book/add-book.component';
 import { GoogleBooksService } from './googlebooks/google-books-service.service';
 import { WA18396Interceptor } from './core/WA18396.interceptor';
 import { MyBooksComponent } from './my-books/my-books.component';
+import { NewBookSearcherComponent } from './new-book-searcher/new-book-searcher.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MyBooksComponent } from './my-books/my-books.component';
     ProfileComponent,
     AddBookComponent,
     MyBooksComponent,
+    NewBookSearcherComponent,
   ],
   imports: [
     BrowserModule,

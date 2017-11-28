@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../core/auth.service';
 import { LendtomeService } from '../lendtome.service';
 import { BookSearchResult } from '../booksearchresult';
+import { NewBookSearcherComponent } from '../new-book-searcher/new-book-searcher.component';
 
 @Component({
   selector: 'app-home',
@@ -10,14 +11,10 @@ import { BookSearchResult } from '../booksearchresult';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(public router: Router, public lendtomeService: LendtomeService) {}
+  constructor(public lendtomeService: LendtomeService) {}
 
   ngOnInit() {
     this.lendtomeService.initialiseLibrary();
-  }
-
-  public searchForBooks(searchTerm: string): void {
-    this.router.navigateByUrl('addbook/' + searchTerm);
   }
 
 }

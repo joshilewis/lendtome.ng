@@ -1,12 +1,5 @@
 <div style="text-align: center">
   <h3>Dashboard</h3>
 </div>
-<div style="align-content: center">
-  <mat-form-field hintLabel="Search by title, author, ISBN...">
-    <input matInput placeholder="Search Term" name="searchTerm" #searchTerm (keydown.enter)="searchForBooks(searchTerm.value)">
-  </mat-form-field>
-  <button mat-mini-fab color="primary" type="submit" (click)="searchForBooks(searchTerm.value)">
-    <mat-icon svgIcon="magnify">
-    </mat-icon>
-  </button>
-</div>
+
+<app-new-book-searcher></app-new-book-searcher>
