@@ -23,7 +23,7 @@ import { DefaultGuard } from './core/default.guard';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddBookComponent } from './add-book/add-book.component';
-import { GoogleBooksService } from './googlebooks/google-books-service.service';
+import { GoogleBooksService } from './googlebooks/google-books.service';
 import { WA18396Interceptor } from './core/WA18396.interceptor';
 import { MyBooksComponent } from './my-books/my-books.component';
 import { NewBookSearcherComponent } from './new-book-searcher/new-book-searcher.component';

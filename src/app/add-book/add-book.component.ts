@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { GoogleBook } from '../googlebooks/googlebook';
-import { GoogleBooksService } from '../googlebooks/google-books-service.service';
+import { GoogleBooksService } from '../googlebooks/google-books.service';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LendtomeService } from '../lendtome.service';
 import { Router } from '@angular/router';
