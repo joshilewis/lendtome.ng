@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   constructor(
     public lendtomeService: LendtomeService,
     private dialog: MatDialog,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -24,13 +24,12 @@ export class HomeComponent implements OnInit {
   }
 
   scanBarcode(): void {
-    const dialogRef = this.dialog.open(BarcodeScannerComponent, {
-      height: '200px',
-      width: '200px'
-    });
+    const dialogRef = this.dialog.open(BarcodeScannerComponent);
     dialogRef.afterClosed().subscribe(isbn => {
-      console.log(`The scanned ISBN number is ${isbn}`);
-      this.router.navigateByUrl('addbook/' + isbn);
+      if (isbn) {
+        console.log(`The scanned ISBN number is ${isbn}`);
+        this.router.navigateByUrl('addbook/' + isbn);
+      }
     });
   }
 }
