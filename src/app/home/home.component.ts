@@ -4,6 +4,8 @@ import { AuthService } from '../core/auth.service';
 import { LendtomeService } from '../lendtome.service';
 import { BookSearchResult } from '../booksearchresult';
 import { NewBookSearcherComponent } from '../new-book-searcher/new-book-searcher.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.component';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +13,24 @@ import { NewBookSearcherComponent } from '../new-book-searcher/new-book-searcher
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(public lendtomeService: LendtomeService) {}
+  constructor(
+    public lendtomeService: LendtomeService,
+    private dialog: MatDialog,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.lendtomeService.initialiseLibrary();
   }
 
+  scanBarcode(): void {
+    const dialogRef = this.dialog.open(BarcodeScannerComponent, {
+      height: '200px',
+      width: '200px'
+    });
+    dialogRef.afterClosed().subscribe(isbn => {
+      console.log(`The scanned ISBN number is ${isbn}`);
+      this.router.navigateByUrl('addbook/' + isbn);
+    });
+  }
 }

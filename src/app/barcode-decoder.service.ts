@@ -1,0 +1,115 @@
+// originally taken from https://github.com/mhadaily/ng2-barcode-validator/blob/master/src/app/services/barcode-decoder.service.ts
+import { Injectable } from '@angular/core';
+import { DECODER_CONFIG, DECODER_LIVE_CONFIG } from './decoder-config';
+import * as Quagga from 'quagga';
+
+@Injectable()
+export class BarcodeDecoderService {
+
+  constructor() {}
+
+  onDecodeSingle(src) {
+    DECODER_CONFIG.src = src;
+    // Promisify DecodeSingle method from Quagga
+    return new Promise((resolve, reject) => {
+      Quagga.decodeSingle(DECODER_CONFIG, result => {
+        if (!result || typeof result.codeResult === 'undefined') {
+          reject('File Cannot be Decode, Please Try a Valid Barcode;');
+        }
+        resolve(result.codeResult.code);
+      });
+    });
+  }
+
+  private setLiveStreamConfig() {
+    DECODER_LIVE_CONFIG.inputStream = {
+      type: 'LiveStream',
+      constraints: {
+        width: {min: 640},
+        height: {min: 480},
+        facingMode: 'environment',
+        aspectRatio: {
+          min: 1,
+          max: 2
+        }
+      }
+    };
+    return DECODER_LIVE_CONFIG;
+  }
+
+  onLiveStreamInit() {
+    const state = this.setLiveStreamConfig();
+    Quagga.init(state, (err) => {
+      if (err) {
+        return console.error(err);
+      }
+      Quagga.start();
+    });
+  }
+
+  onProcessed(result: any) {
+    const drawingCtx = Quagga.canvas.ctx.overlay,
+      drawingCanvas = Quagga.canvas.dom.overlay;
+
+    if (result) {
+      if (result.boxes) {
+        drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute('width'), 10), parseInt(drawingCanvas.getAttribute('height'), 10));
+        result.boxes.filter(function(box) {
+          return box !== result.box;
+        }).forEach(function(box) {
+          Quagga.ImageDebug.drawPath(box, {
+            x: 0,
+            y: 1
+          }, drawingCtx, {
+            color: 'green',
+            lineWidth: 2
+          });
+        });
+      }
+
+      if (result.box) {
+        Quagga.ImageDebug.drawPath(result.box, {
+          x: 0,
+          y: 1
+        }, drawingCtx, {
+          color: '#00F',
+          lineWidth: 2
+        });
+      }
+
+      if (result.codeResult && result.codeResult.code) {
+        Quagga.ImageDebug.drawPath(result.line, {
+          x: 'x',
+          y: 'y'
+        }, drawingCtx, {
+          color: 'red',
+          lineWidth: 3
+        });
+      }
+
+    }
+  }
+
+  onDecodeProcessed() {
+    Quagga.onProcessed(this.onProcessed);
+  }
+
+  onDecodeDetected() {
+    // Promisify OnDetected method from Quagga
+    return new Promise((resolve, reject) => {
+      Quagga.onDetected(result => {
+
+        if (!result || typeof result.codeResult === 'undefined') {
+          reject('Cannot be Detected, Please Try again!');
+        }
+        resolve(result.codeResult.code);
+      });
+    });
+  }
+
+  onDecodeStop() {
+    Quagga.stop();
+    console.log('Camera Stopped Working!');
+  }
+
+}

@@ -27,6 +27,8 @@ import { GoogleBooksService } from './googlebooks/google-books.service';
 import { WA18396Interceptor } from './core/WA18396.interceptor';
 import { MyBooksComponent } from './my-books/my-books.component';
 import { NewBookSearcherComponent } from './new-book-searcher/new-book-searcher.component';
+import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.component';
+import { BarcodeDecoderService } from './barcode-decoder.service';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { NewBookSearcherComponent } from './new-book-searcher/new-book-searcher.
     AddBookComponent,
     MyBooksComponent,
     NewBookSearcherComponent,
+    BarcodeScannerComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +71,10 @@ import { NewBookSearcherComponent } from './new-book-searcher/new-book-searcher.
     AuthGuard,
     DefaultGuard,
     GoogleBooksService,
+    BarcodeDecoderService,
+  ],
+  entryComponents: [
+    BarcodeScannerComponent,
   ],
   bootstrap: [AppComponent]
 })
