@@ -9,17 +9,17 @@ import { BarcodeDecoderService } from '../barcode-decoder.service';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
-  selector: 'app-barcode-scanner',
-  templateUrl: './barcode-scanner.component.html',
-  styleUrls: ['./barcode-scanner.component.css']
+  selector: 'app-barcode-scanner-dialog',
+  templateUrl: './barcode-scanner-dialog.component.html',
+  styleUrls: ['./barcode-scanner-dialog.component.css']
 })
-export class BarcodeScannerComponent
+export class BarcodeScannerDialogComponent
   implements OnInit, OnDestroy, AfterContentInit {
   @ViewChild('interactive') interactive;
 
   constructor(
     private decoderService: BarcodeDecoderService,
-    private dialogRef: MatDialogRef<BarcodeScannerComponent>
+    private dialogRef: MatDialogRef<BarcodeScannerDialogComponent>
   ) {}
 
   ngOnInit() {

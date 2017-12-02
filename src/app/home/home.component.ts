@@ -5,7 +5,7 @@ import { LendtomeService } from '../lendtome.service';
 import { BookSearchResult } from '../booksearchresult';
 import { NewBookSearcherComponent } from '../new-book-searcher/new-book-searcher.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.component';
+import { BarcodeScannerDialogComponent } from '../barcode-scanner-dialog/barcode-scanner-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   }
 
   scanBarcode(): void {
-    const dialogRef = this.dialog.open(BarcodeScannerComponent);
+    const dialogRef = this.dialog.open(BarcodeScannerDialogComponent);
     dialogRef.afterClosed().subscribe(isbn => {
       if (isbn) {
         console.log(`The scanned ISBN number is ${isbn}`);
