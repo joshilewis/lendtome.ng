@@ -1,10 +1,21 @@
 <div>
   <mat-toolbar color="primary">
-      <span (click)="router.navigateByUrl('/home')">lend-to.me</span>
+    <span (click)="router.navigateByUrl('/home')">lend-to.me</span>
     <span class="example-fill-remaining-space"></span>
     <!-- <img [src]="user.photoURL" *ngIf="authService.user | async as user"> -->
-    <span *ngIf="authService.user | async as user" (click)="router.navigateByUrl('/profile')">
-      {{user.displayName}}
-    </span>
+    <button mat-icon-button [matMenuTriggerFor]="appMenu" *ngIf="authService.user | async as user">
+      <mat-icon>more_vert</mat-icon>
+    </button>
   </mat-toolbar>
+  <mat-menu #appMenu="matMenu">
+    <button mat-menu-item (click)="router.navigateByUrl('/mybooks')">
+      My books
+    </button>
+    <button mat-menu-item (click)="router.navigateByUrl('/libraries')">
+      Connected libraries
+    </button>
+    <button mat-menu-item *ngIf="authService.user | async as user" (click)="router.navigateByUrl('/profile')">
+      {{user.displayName}}
+    </button>
+  </mat-menu>
 </div>

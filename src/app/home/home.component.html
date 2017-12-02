@@ -1,30 +1,25 @@
 <div style="text-align: center">
-  <h3>Dashboard</h3>
+  <h3>Control Center</h3>
 </div>
 
 <div style="display: flex; justify-content: flex-start; flex-direction: column; align-items: center; width: 100%">
+
   <div style="width:100%">
     <mat-form-field hintLabel="Search by title or author" style="width: 100%">
       <input matInput placeholder="Search for books in connected libraries">
     </mat-form-field>
   </div>
 
-  <div style="margin-top: 5px; margin-bottom: 5px; width: 100%">
-    <app-new-book-searcher></app-new-book-searcher>
-  </div>
-
   <div style=" margin-top: 5px; margin-bottom: 5px">
     <div>
-        <button mat-raised-button color="primary" (click)="scanBarcode()">Scan an ISBN barcode</button>
+      <button mat-raised-button color="primary" (click)="scanBarcode()">Scan an ISBN barcode</button>
     </div>
   </div>
 
-  <div style=" margin-top: 5px; margin-bottom: 5px">
-    <div>
-      <a routerLink="/mybooks">
-        <button mat-raised-button color="primary">See my books</button>
-      </a>
-    </div>
+  <div style="width:100%">
+    <mat-form-field hintLabel="Search by name" style="width: 100%">
+      <input matInput placeholder="Search for libraries to connect to">
+    </mat-form-field>
   </div>
 
 </div>
