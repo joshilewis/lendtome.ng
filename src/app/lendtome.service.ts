@@ -48,7 +48,13 @@ export class LendtomeService {
   private listBooks(): Observable<BookSearchResult[]> {
     return this.http.get<BookSearchResult[]>(
       `${environment.apiUrl}/libraries/${this.libraryId}/books`
-  );
+    );
+  }
+
+  public searchLibraries(searchTerm: string): Observable<LibrarySearchResult[]> {
+    return this.http.get<LibrarySearchResult[]>(
+      `${environment.apiUrl}/libraries/${searchTerm}`
+    );
   }
 
   public refreshBooks(): void {
@@ -95,7 +101,7 @@ export class LendtomeService {
       isbn: book.volumeInfo.industryIdentifiers.find(x => x.type === 'ISBN_13')
         .identifier,
       publishYear: +book.volumeInfo.publishedDate.substr(0, 4),
-      coverPicture: book.volumeInfo.imageLinks.thumbnail,
+      coverPicture: book.volumeInfo.imageLinks.thumbnail
     };
     const promise = Promise<Object>((resolve, reject) => {
       this.http

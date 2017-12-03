@@ -1,0 +1,45 @@
+<div style="text-align: center">
+  <h3>Search for libraries</h3>
+</div>
+
+<div *ngIf="libraries | async; then loaded else loading" style="text-align: center">
+</div>
+
+<ng-template #loading>
+  <div style="align-content: center">
+    <mat-spinner [diameter]="50" style="align-content: center"></mat-spinner>
+  </div>
+</ng-template>
+
+<ng-template #loaded>
+  <div *ngIf="(libraries | async)?.length == 0 then noResult else result">
+  </div>
+
+  <ng-template #noResult>
+    <p>We couldn't find any libraries matching '{{searchTerm}}'</p>
+  </ng-template>
+
+  <ng-template #result>
+    <div style="text-align: center">
+      These are the libraries we found for '{{searchTerm}}'
+    </div>
+
+    <div>
+      <div *ngFor="let library of libraries | async" style="display: flex; flex-direction: row; margin-top: 5px; margin-bottom: 5px">
+        <div style="max-width: 25%">
+          <img src="{{library.picture}}" width="100%">
+        </div>
+        <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap; align-items:center; justify-content: center;">
+          <div style="font-weight: 700">{{library.name}}</div>
+          <div>
+            <button mat-mini-fab color="primary" (click)="connectToLibrary(library)">
+              <mat-icon svgIcon="plus-circle">
+              </mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+</ng-template>

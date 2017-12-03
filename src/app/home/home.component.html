@@ -16,7 +16,7 @@
 
   <div style="width:100%">
     <mat-form-field hintLabel="Search by name" style="width: 100%">
-      <input matInput placeholder="Search for libraries to connect to">
+      <input matInput placeholder="Search for libraries to connect to" name="searchTerm" #searchTerm (keydown.enter)="searchForLibraries(searchTerm.value)">
     </mat-form-field>
   </div>
 

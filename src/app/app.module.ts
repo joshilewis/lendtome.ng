@@ -30,6 +30,7 @@ import { NewBookSearcherComponent } from './new-book-searcher/new-book-searcher.
 import { BarcodeScannerDialogComponent } from './barcode-scanner-dialog/barcode-scanner-dialog.component';
 import { BarcodeDecoderService } from './barcode-decoder.service';
 import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.component';
+import { LibraryResultsComponent } from './library-results/library-results.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.compo
     NewBookSearcherComponent,
     BarcodeScannerDialogComponent,
     BarcodeScannerComponent,
+    LibraryResultsComponent,
   ],
   imports: [
     BrowserModule,

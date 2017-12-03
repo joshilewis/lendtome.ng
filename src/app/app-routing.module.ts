@@ -11,6 +11,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AddBookComponent } from './add-book/add-book.component';
 import { MyBooksComponent } from './my-books/my-books.component';
 import { BarcodeScannerDialogComponent } from './barcode-scanner-dialog/barcode-scanner-dialog.component';
+import { LibraryResultsComponent } from './library-results/library-results.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'addbook/:searchTerm', component: AddBookComponent, canActivate: [AuthGuard]  },
   { path: 'mybooks', component: MyBooksComponent, canActivate: [AuthGuard]  },
   { path: 'scan', component: BarcodeScannerDialogComponent, canActivate: [AuthGuard]  },
+  { path: 'librarysearch/:searchTerm', component: LibraryResultsComponent, canActivate: [AuthGuard]  },
 ];
 
 @NgModule({

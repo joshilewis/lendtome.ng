@@ -12,10 +12,15 @@ import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.comp
 })
 export class HomeComponent implements OnInit {
   constructor(
-    public lendtomeService: LendtomeService
+    public lendtomeService: LendtomeService,
+    private router: Router,
     ) {}
 
   ngOnInit() {
     this.lendtomeService.initialiseLibrary();
+  }
+
+  public searchForLibraries(searchTerm: string): void {
+    this.router.navigateByUrl('librarysearch/' + searchTerm);
   }
 }
