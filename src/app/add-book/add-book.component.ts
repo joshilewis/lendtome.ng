@@ -26,7 +26,6 @@ export class AddBookComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.lendtomeService.initialiseLibrary();
   }
 
   public addBook(bookToAdd: GoogleBook): void {

@@ -14,7 +14,6 @@ export class MyBooksComponent implements OnInit {
   constructor(public lendtomeService: LendtomeService) { }
 
   ngOnInit() {
-    this.lendtomeService.initialiseLibrary();
   }
 
   public removeBook(book: BookSearchResult): void {

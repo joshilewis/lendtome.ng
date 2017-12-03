@@ -22,7 +22,6 @@ export class LibraryResultsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.lendtomeService.initialiseLibrary();
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PersistenceService } from 'angular-persistence';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, flatMap } from 'rxjs/operators';
 import { LibrarySearchResult } from './librarysearchresult';
 import { BookSearchResult } from './booksearchresult';
 import { error } from 'util';
@@ -15,11 +15,13 @@ import { GoogleBook } from './googlebooks/googlebook';
 import 'rxjs/add/operator/toPromise';
 import { Promise } from 'q';
 import { KeyConstants } from './core/key-contstants';
+import { LibraryStatusResult } from './librarystatusresult';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class LendtomeService {
-  private libraryId: string;
   public books: Observable<BookSearchResult[]>;
+  public libraryStatus: Observable<LibraryStatusResult>;
   constructor(
     private persistenceService: PersistenceService,
     private http: HttpClient,
@@ -29,16 +31,29 @@ export class LendtomeService {
     //   persistenceService.remove(libraryIdkey, StorageType.LOCAL)
     // );
     this.books = this.listBooks();
+    this.libraryStatus = this.getLibraryStatus();
   }
 
-  public initialiseLibrary(): void {
-    this.libraryId = this.persistenceService.get(
+  private getLibraryId(): Promise<string> {
+    const libraryId = this.persistenceService.get(
       KeyConstants.libraryId,
       StorageType.LOCAL
     );
-    if (!this.libraryId) {
-      this.getLibraryIdFromApi();
-    }
+
+    return Promise(resolve => {
+      if (libraryId) {
+        return resolve(libraryId);
+      }
+
+      console.log(`libraryId not in storage, getting from API`);
+      this.getLibraryIdFromApi().then(result => {
+        console.log(`received libraryId from API: ${result}`);
+        this.persistenceService.set(KeyConstants.libraryId, result, {
+          type: StorageType.LOCAL
+        });
+        resolve(result);
+      });
+    });
   }
 
   private clearLibraryId(): void {
@@ -46,12 +61,16 @@ export class LendtomeService {
   }
 
   private listBooks(): Observable<BookSearchResult[]> {
-    return this.http.get<BookSearchResult[]>(
-      `${environment.apiUrl}/libraries/${this.libraryId}/books`
-    );
+    return Observable
+    .fromPromise(this.getLibraryId() as PromiseLike<string>)
+    .flatMap(libraryId => this.http.get<BookSearchResult[]>(
+      `${environment.apiUrl}/libraries/${libraryId}/books`
+    ));
   }
 
-  public searchLibraries(searchTerm: string): Observable<LibrarySearchResult[]> {
+  public searchLibraries(
+    searchTerm: string
+  ): Observable<LibrarySearchResult[]> {
     return this.http.get<LibrarySearchResult[]>(
       `${environment.apiUrl}/libraries/${searchTerm}`
     );
@@ -61,37 +80,36 @@ export class LendtomeService {
     this.books = this.listBooks();
   }
 
-  private getLibraryIdFromApi(): void {
-    this.http
-      .get<LibrarySearchResult[]>(`${environment.apiUrl}/libraries/`)
-      .subscribe(libraries => {
-        if (libraries.length === 0) {
-          this.openNewLibrary();
-        } else {
-          this.persistenceService.set(KeyConstants.libraryId, libraries[0].id, {
-            type: StorageType.LOCAL
-          });
-        }
-      });
+  private getLibraryIdFromApi(): Promise<string> {
+    return Promise(resolve => {
+      this.http
+        .get<LibrarySearchResult[]>(`${environment.apiUrl}/libraries/`)
+        .subscribe(libraries => {
+          if (libraries.length === 0) {
+            resolve(this.openNewLibrary().toString());
+          } else {
+            resolve(libraries[0].id);
+          }
+        });
+    });
   }
 
-  private openNewLibrary(): void {
-    this.http
-      .post(`${environment.apiUrl}/libraries/`, {
-        name: this.authService.currentUser.displayName,
-        picture: this.authService.currentUser.photoURL
-      })
-      .subscribe(
-        result => {
-          this.persistenceService.set(KeyConstants.libraryId, result, {
-            type: StorageType.LOCAL
-          });
-          this.libraryId = result.toString();
-        },
-        err => {
-          console.log(err);
-        }
-      );
+  private openNewLibrary(): Promise<string> {
+    return Promise(resolve => {
+      this.http
+        .post(`${environment.apiUrl}/libraries/`, {
+          name: this.authService.currentUser.displayName,
+          picture: this.authService.currentUser.photoURL
+        })
+        .subscribe(
+          data => {
+            resolve(data.toString());
+          },
+          err => {
+            resolve(err);
+          }
+        );
+    });
   }
 
   public addBook(book: GoogleBook): Promise<Object> {
@@ -103,10 +121,12 @@ export class LendtomeService {
       publishYear: +book.volumeInfo.publishedDate.substr(0, 4),
       coverPicture: book.volumeInfo.imageLinks.thumbnail
     };
-    const promise = Promise<Object>((resolve, reject) => {
+    return  Promise((resolve, reject) => {
+      this.getLibraryId()
+      .then(libraryId => {
       this.http
         .post(
-          `${environment.apiUrl}/libraries/${this.libraryId}/books/add/`,
+          `${environment.apiUrl}/libraries/${libraryId}/books/add/`,
           bookToAdd
         )
         .toPromise()
@@ -117,15 +137,17 @@ export class LendtomeService {
           console.log(err.message);
           return reject;
         });
+      });
     });
-    return promise;
   }
 
   public removeBook(book: BookSearchResult): Promise<Object> {
-    const promise = Promise<Object>((resolve, reject) => {
+    return Promise((resolve, reject) => {
+      this.getLibraryId()
+      .then(libraryId => {
       this.http
         .post(
-          `${environment.apiUrl}/libraries/${this.libraryId}/books/remove/`,
+          `${environment.apiUrl}/libraries/${libraryId}/books/remove/`,
           {
             title: book.title,
             author: book.author,
@@ -142,8 +164,16 @@ export class LendtomeService {
           console.log(err.message);
           return reject;
         });
+      });
     });
-    return promise;
+  }
+
+  private getLibraryStatus(): Observable<LibraryStatusResult> {
+    return Observable
+    .fromPromise(this.getLibraryId() as PromiseLike<string>)
+    .flatMap(libraryId => this.http.get<LibraryStatusResult>(
+      `${environment.apiUrl}/libraries/${libraryId}`
+    ));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

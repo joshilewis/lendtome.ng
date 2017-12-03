@@ -1,0 +1,18 @@
+<div style="text-align: center">
+  <h3>Your connected libraries</h3>
+</div>
+
+<div *ngIf="lendtomeService.libraryStatus | async; then loaded else loading" style="text-align: center">
+</div>
+
+<ng-template #loading>
+  <div style="align-content: center">
+    <mat-spinner [diameter]="50" style="align-content: center"></mat-spinner>
+  </div>
+</ng-template>
+
+<ng-template #loaded>
+    <!-- <div *ngIf="(lendtomeService.libraryStatus | async)?.connectedLibraries.length > 0">
+      There are connected libraries
+      </div> -->
+</ng-template>

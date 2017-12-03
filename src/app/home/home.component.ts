@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.lendtomeService.initialiseLibrary();
   }
 
   public searchForLibraries(searchTerm: string): void {
