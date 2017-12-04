@@ -12,7 +12,49 @@
 </ng-template>
 
 <ng-template #loaded>
-    <!-- <div *ngIf="(lendtomeService.libraryStatus | async)?.connectedLibraries.length > 0">
-      There are connected libraries
-      </div> -->
+  <div *ngIf="lendtomeService.libraryStatus | async; let status">
+    <div *ngIf="status.connectedLibraries.length > 0">
+      You are connected to the following libraries:
+      <div *ngFor="let connection of status.connectedLibraries" style="display: flex; flex-direction: row; margin-top: 5px; margin-bottom: 5px">
+        <div style="max-width: 20%">
+          <img src="{{connection.picture}}" width="100%">
+        </div>
+        <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap; align-items:center; justify-content: center;">
+          <div style="font-weight: 700">{{connection.name}}</div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="status.receivedRequests.length > 0">
+      You have received connection requests from these libraries:
+      <div *ngFor="let request of status.receivedRequests" style="display: flex; flex-direction: row; margin-top: 5px; margin-bottom: 5px">
+        <div style="max-width: 20%">
+          <img src="{{request.picture}}" width="100%">
+        </div>
+        <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap; align-items:center; justify-content: center;">
+          <div style="font-weight: 700">{{request.name}}</div>
+          <div>
+            <div>
+              <button mat-mini-fab color="primary" (click)="acceptConnection(request)">
+                <mat-icon svgIcon="plus-circle">
+                </mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="status.sentRequests.length > 0">
+      You have sent connection requests to these libraries:
+      <div *ngFor="let request of status.sentRequests" style="display: flex; flex-direction: row; margin-top: 5px; margin-bottom: 5px">
+        <div style="max-width: 20%">
+          <img src="{{request.picture}}" width="100%">
+        </div>
+        <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap; align-items:center; justify-content: center;">
+          <div style="font-weight: 700">{{request.name}}</div>
+          <div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ng-template>
