@@ -14,10 +14,26 @@
     <app-barcode-scanner></app-barcode-scanner>
   </div>
 
-  <div style="width:100%">
+  <div style="width:100%; margin-top: 5px; margin-bottom: 5px;">
     <mat-form-field hintLabel="Search by name" style="width: 100%">
       <input matInput placeholder="Search for libraries to connect to" name="searchTerm" #searchTerm (keydown.enter)="searchForLibraries(searchTerm.value)">
     </mat-form-field>
   </div>
 
-</div>
+  <div *ngIf="(lendtomeService.connectionRequests | async).length > 0 " style="text-align: center; margin-top: 5px; margin-bottom: 5px">
+    You have some unaccepted connection requests!
+    <div *ngFor="let request of lendtomeService.connectionRequests | async" style="display: flex; flex-direction: row; margin-top: 5px; margin-bottom: 5px">
+      <div style="max-width: 25%">
+        <img src="{{request.picture}}" width="100%">
+      </div>
+      <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap; align-items:center; justify-content: center;">
+        <div style="font-weight: 700">{{request.name}}</div>
+        <div>
+          <button mat-mini-fab color="primary" (click)="acceptConnection(request)">
+            <mat-icon svgIcon="plus-circle">
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

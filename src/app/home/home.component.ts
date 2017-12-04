@@ -4,6 +4,7 @@ import { AuthService } from "../core/auth.service";
 import { LendtomeService } from "../lendtome.service";
 import { BookSearchResult } from "../booksearchresult";
 import { BarcodeScannerComponent } from "../barcode-scanner/barcode-scanner.component";
+import { LibrarySearchResult } from "../librarysearchresult";
 
 @Component({
   selector: "app-home",
@@ -24,5 +25,12 @@ export class HomeComponent implements OnInit {
 
   public searchForBooks(searchTerm: string): void {
     this.router.navigateByUrl("booksearch/" + searchTerm);
+  }
+
+  public acceptConnection(library: LibrarySearchResult): void {
+    this.lendtomeService
+      .acceptConnection(library)
+      .then(this.lendtomeService.refreshLibraryStatus)
+      .catch(err => console.log(err));
   }
 }

@@ -22,6 +22,7 @@ import "rxjs/add/operator/mergeMap";
 export class LendtomeService {
   public books: Observable<BookSearchResult[]>;
   public libraryStatus: Observable<LibraryStatusResult>;
+  public connectionRequests: Observable<LibrarySearchResult[]>;
   constructor(
     private persistenceService: PersistenceService,
     private http: HttpClient,
@@ -32,6 +33,7 @@ export class LendtomeService {
     // );
     this.books = this.listBooks();
     this.libraryStatus = this.getLibraryStatus();
+    this.connectionRequests = this.getConnectionRequests();
   }
 
   private getLibraryId(): Promise<string> {
@@ -186,6 +188,20 @@ export class LendtomeService {
         `${environment.apiUrl}/books/${searchTerm}`
       )
     );
+  }
+
+  private getConnectionRequests(): Observable<LibrarySearchResult[]> {
+    return Observable.fromPromise(this.getLibraryId() as PromiseLike<
+      string
+    >).flatMap(libraryId =>
+      this.http.get<LibrarySearchResult[]>(
+        `${environment.apiUrl}/libraries/${libraryId}/links/received/`
+      )
+    );
+  }
+
+  public refreshReceivedConnections(): void {
+    this.connectionRequests = this.getConnectionRequests();
   }
 
   private handleError<T>(operation = "operation", result?: T) {

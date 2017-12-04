@@ -20,7 +20,7 @@ export class ConnectedLibrariesComponent implements OnInit {
   public acceptConnection(library: LibrarySearchResult): void {
     this.lendtomeService
       .acceptConnection(library)
-      .then(this.lendtomeService.refreshLibraryStatus)
+      .then(this.lendtomeService.refreshReceivedConnections)
       .catch(err => console.log(err));
   }
 }
