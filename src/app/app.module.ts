@@ -32,6 +32,7 @@ import { BarcodeDecoderService } from './barcode-decoder.service';
 import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.component';
 import { LibraryResultsComponent } from './library-results/library-results.component';
 import { ConnectedLibrariesComponent } from './connected-libraries/connected-libraries.component';
+import { BookSearchResultsComponent } from './book-search-results/book-search-results.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { ConnectedLibrariesComponent } from './connected-libraries/connected-lib
     BarcodeScannerComponent,
     LibraryResultsComponent,
     ConnectedLibrariesComponent,
+    BookSearchResultsComponent,
   ],
   imports: [
     BrowserModule,

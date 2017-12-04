@@ -178,6 +178,16 @@ export class LendtomeService {
     });
   }
 
+  public searchBooks(searchTerm: string): Observable<BookSearchResult[]> {
+    return Observable.fromPromise(this.getLibraryId() as PromiseLike<
+      string
+    >).flatMap(libraryId =>
+      this.http.get<BookSearchResult[]>(
+        `${environment.apiUrl}/books/${searchTerm}`
+      )
+    );
+  }
+
   private handleError<T>(operation = "operation", result?: T) {
     return (err: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
