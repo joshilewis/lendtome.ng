@@ -6,7 +6,7 @@
 
   <div style="width:100%">
     <mat-form-field hintLabel="Search by title or author" style="width: 100%">
-      <input matInput placeholder="Search for books in connected libraries">
+      <input matInput placeholder="Search for books in connected libraries" name="bookSearchTerm" #bookSearchTerm (keydown.enter)="searchForBooks(bookSearchTerm.value)">
     </mat-form-field>
   </div>
 
