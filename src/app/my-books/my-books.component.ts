@@ -1,25 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { LendtomeService } from '../lendtome.service';
-import { BookSearchResult } from '../booksearchresult';
-import { NewBookSearcherComponent } from '../new-book-searcher/new-book-searcher.component';
-import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.component';
+import { Component, OnInit } from "@angular/core";
+import { LendtomeService } from "../lendtome.service";
+import { BookSearchResult } from "../booksearchresult";
+import { NewBookSearcherComponent } from "../new-book-searcher/new-book-searcher.component";
+import { BarcodeScannerComponent } from "../barcode-scanner/barcode-scanner.component";
 
 @Component({
-  selector: 'app-my-books',
-  templateUrl: './my-books.component.html',
-  styleUrls: ['./my-books.component.css']
+  selector: "app-my-books",
+  templateUrl: "./my-books.component.html",
+  styleUrls: ["./my-books.component.css"]
 })
 export class MyBooksComponent implements OnInit {
+  constructor(public lendtomeService: LendtomeService) {}
 
-  constructor(public lendtomeService: LendtomeService) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   public removeBook(book: BookSearchResult): void {
     this.lendtomeService
       .removeBook(book)
-      .then(res => {
+      .then(resolve => {
         this.lendtomeService.refreshBooks();
       })
       .catch(err => console.log(err));

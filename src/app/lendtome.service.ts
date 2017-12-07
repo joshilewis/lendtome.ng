@@ -118,31 +118,27 @@ export class LendtomeService {
       publishYear: +book.volumeInfo.publishedDate.substr(0, 4),
       coverPicture: book.volumeInfo.imageLinks.thumbnail
     };
-    return Promise((resolve, reject) => {
-      this.getLibraryId().then(libraryId => {
-        this.http
-          .post(
-            `${environment.apiUrl}/libraries/${libraryId}/books/add/`,
-            bookToAdd
-          )
-          .toPromise();
-      });
+    return this.getLibraryId().then(libraryId => {
+      return this.http
+        .post(
+          `${environment.apiUrl}/libraries/${libraryId}/books/add/`,
+          bookToAdd
+        )
+        .toPromise();
     });
   }
 
   public removeBook(book: BookSearchResult): Promise<Object> {
-    return Promise((resolve, reject) => {
-      this.getLibraryId().then(libraryId => {
-        this.http
-          .post(`${environment.apiUrl}/libraries/${libraryId}/books/remove/`, {
-            title: book.title,
-            author: book.author,
-            isbn: book.isbn,
-            publishYear: book.publishYear,
-            coverPicture: book.coverPicture
-          })
-          .toPromise();
-      });
+    return this.getLibraryId().then(libraryId => {
+      return this.http
+        .post(`${environment.apiUrl}/libraries/${libraryId}/books/remove/`, {
+          title: book.title,
+          author: book.author,
+          isbn: book.isbn,
+          publishYear: book.publishYear,
+          coverPicture: book.coverPicture
+        })
+        .toPromise();
     });
   }
 
