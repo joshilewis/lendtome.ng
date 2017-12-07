@@ -16,7 +16,7 @@ import { Call_Status } from "../infra/call-status";
 export class AddBookComponent implements OnInit {
   public books: Observable<GoogleBook[]>;
   public searchTerm: string;
-  public bookStatus: Map<string, Call_Status>;
+  public callStatus: Map<string, Call_Status>;
   public Call_Status = Call_Status;
   constructor(
     private route: ActivatedRoute,
@@ -26,18 +26,18 @@ export class AddBookComponent implements OnInit {
   ) {
     this.searchTerm = this.route.snapshot.paramMap.get("searchTerm");
     this.books = googleBooksService.searchBooks(this.searchTerm);
-    this.bookStatus = new Map<string, Call_Status>();
+    this.callStatus = new Map<string, Call_Status>();
   }
 
   ngOnInit() {}
 
   public addBook(bookToAdd: GoogleBook): void {
-    this.bookStatus[bookToAdd.id] = Call_Status.Pending;
-    this.bookStatus.set(bookToAdd.id, Call_Status.Pending);
+    this.callStatus[bookToAdd.id] = Call_Status.Pending;
+    this.callStatus.set(bookToAdd.id, Call_Status.Pending);
     this.lendtomeService
       .addBook(bookToAdd)
       .then(res => {
-        this.bookStatus[bookToAdd.id] = Call_Status.Success;
+        this.callStatus[bookToAdd.id] = Call_Status.Success;
         // this.router.navigateByUrl("mybooks");
       })
       .catch(err => console.log(err));

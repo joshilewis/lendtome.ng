@@ -14,10 +14,10 @@
         <div style="font-weight: 700">{{book.volumeInfo.title}}</div>
         <div>{{book.volumeInfo.authors[0]}}</div>
         <div>
-          <mat-icon svgIcon="plus-circle" (click)="addBook(book)" *ngIf="!bookStatus.has(book.id)">
+          <mat-icon svgIcon="plus-circle" (click)="addBook(book)" *ngIf="!callStatus.has(book.id)">
           </mat-icon>
-          <mat-spinner *ngIf="bookStatus[book.id] === Call_Status.Pending" #loadingSpinner [diameter]="20"></mat-spinner>
-          <mat-icon svgIcon="check-circle" *ngIf="bookStatus[book.id] === Call_Status.Success"></mat-icon>
+          <mat-spinner *ngIf="callStatus[book.id] === Call_Status.Pending" #loadingSpinner [diameter]="20"></mat-spinner>
+          <mat-icon svgIcon="check-circle" *ngIf="callStatus[book.id] === Call_Status.Success"></mat-icon>
         </div>
       </div>
     </div>
