@@ -20,19 +20,21 @@
     </mat-form-field>
   </div>
 
-  <div *ngIf="(lendtomeService.connectionRequests | async).length > 0 " style="text-align: center; margin-top: 5px; margin-bottom: 5px">
-    You have some unaccepted connection requests!
-    <div *ngFor="let request of lendtomeService.connectionRequests | async" style="display: flex; flex-direction: row; margin-top: 5px; margin-bottom: 5px">
-      <div style="max-width: 25%">
-        <img src="{{request.picture}}" width="100%">
-      </div>
-      <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap; align-items:center; justify-content: center;">
-        <div style="font-weight: 700">{{request.name}}</div>
-        <div>
-          <button mat-mini-fab color="primary" (click)="acceptConnection(request)">
-            <mat-icon svgIcon="plus-circle">
-            </mat-icon>
-          </button>
+  <div *ngIf="lendtomeService.connectionRequests | async; let requests">
+    <div *ngIf="requests.length > 0 " style="text-align: center; margin-top: 5px; margin-bottom: 5px">
+      You have some unaccepted connection requests!
+      <div *ngFor="let request of requests" style="display: flex; flex-direction: row; margin-top: 5px; margin-bottom: 5px">
+        <div style="max-width: 25%">
+          <img src="{{request.picture}}" width="100%">
+        </div>
+        <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap; align-items:center; justify-content: center;">
+          <div style="font-weight: 700">{{request.name}}</div>
+          <div>
+            <button mat-mini-fab color="primary" (click)="acceptConnection(request)">
+              <mat-icon svgIcon="plus-circle">
+              </mat-icon>
+            </button>
+          </div>
         </div>
       </div>
     </div>
