@@ -22,6 +22,7 @@ import { MaterialModule } from "./material.module";
     AuthService,
     AuthGuard,
     DefaultGuard
-  ]
+  ],
+  exports: [MaterialModule]
 })
 export class InfraModule {}
