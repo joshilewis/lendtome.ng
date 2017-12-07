@@ -6,6 +6,7 @@ import { GoogleBooksService } from "../googlebooks/google-books.service";
 import { catchError, map, tap } from "rxjs/operators";
 import { LendtomeService } from "../lendtome.service";
 import { Router } from "@angular/router";
+import { Call_Status } from "../infra/call-status";
 
 @Component({
   selector: "app-add-book",
@@ -41,10 +42,4 @@ export class AddBookComponent implements OnInit {
       })
       .catch(err => console.log(err));
   }
-}
-
-export enum Call_Status {
-  Pending,
-  Success,
-  Error
 }
