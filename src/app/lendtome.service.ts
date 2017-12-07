@@ -2,20 +2,20 @@ import { Injectable } from "@angular/core";
 import { PersistenceService } from "angular-persistence";
 import { HttpClient } from "@angular/common/http";
 import { catchError, map, mergeMap, tap } from "rxjs/operators";
-import { LibrarySearchResult } from "./librarysearchresult";
-import { BookSearchResult } from "./booksearchresult";
+import { LibrarySearchResult } from "./dto/librarysearchresult";
+import { BookSearchResult } from "./dto/booksearchresult";
 import { error } from "util";
 import { Observable } from "rxjs/Observable";
 import { of } from "rxjs/observable/of";
-import { AuthService } from "./core/auth.service";
+import { AuthService } from "./infra/auth/auth.service";
 import { retry } from "rxjs/operators/retry";
 import { environment } from "../environments/environment";
 import { StorageType } from "angular-persistence/src/constants/persistence.storage_type";
 import { GoogleBook } from "./googlebooks/googlebook";
 import "rxjs/add/operator/toPromise";
 import { Promise } from "q";
-import { KeyConstants } from "./core/key-contstants";
-import { LibraryStatusResult } from "./librarystatusresult";
+import { KeyConstants } from "./infra/key-contstants";
+import { LibraryStatusResult } from "./dto/librarystatusresult";
 import "rxjs/add/operator/mergeMap";
 
 @Injectable()

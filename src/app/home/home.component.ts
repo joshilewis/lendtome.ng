@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { AuthService } from "../core/auth.service";
+import { AuthService } from "../infra/auth/auth.service";
 import { LendtomeService } from "../lendtome.service";
-import { BookSearchResult } from "../booksearchresult";
+import { BookSearchResult } from "../dto/booksearchresult";
 import { BarcodeScannerComponent } from "../barcode-scanner/barcode-scanner.component";
-import { LibrarySearchResult } from "../librarysearchresult";
+import { LibrarySearchResult } from "../dto/librarysearchresult";
 
 @Component({
   selector: "app-home",

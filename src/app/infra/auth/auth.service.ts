@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import * as firebase from 'firebase/app';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import * as firebase from "firebase/app";
+import { AngularFireAuth } from "angularfire2/auth";
 import {
   AngularFirestore,
   AngularFirestoreDocument
-} from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { PersistenceService } from 'angular-persistence/src/services/persistence.service';
-import { LendtomeService } from '../lendtome.service';
-import { StorageType } from 'angular-persistence';
-import { KeyConstants } from '../core/key-contstants';
+} from "angularfire2/firestore";
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/switchMap";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { PersistenceService } from "angular-persistence/src/services/persistence.service";
+import { LendtomeService } from "../../lendtome.service";
+import { StorageType } from "angular-persistence";
+import { KeyConstants } from "../key-contstants";
 
 interface User {
   uid: string;
@@ -84,7 +84,7 @@ export class AuthService {
   signOut() {
     this.persistenceService.remove(KeyConstants.libraryId, StorageType.LOCAL);
     this.afAuth.auth.signOut().then(() => {
-      this.router.navigate(['/']);
+      this.router.navigate(["/"]);
     });
   }
 }

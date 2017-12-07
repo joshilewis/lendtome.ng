@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { LendtomeService } from "../lendtome.service";
-import { BookSearchResult } from "../booksearchresult";
+import { BookSearchResult } from "../dto/booksearchresult";
 import { Observable } from "rxjs/Observable";
 
 @Component({

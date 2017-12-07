@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DomSanitizer } from '@angular/platform-browser';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { DomSanitizer } from "@angular/platform-browser";
 import {
   MatButtonModule,
   MatCheckboxModule,
@@ -11,16 +11,16 @@ import {
   MatIconModule,
   MatIconRegistry,
   MatProgressSpinnerModule,
-  MatMenuModule,
-} from '@angular/material';
+  MatMenuModule
+} from "@angular/material";
 import {
   MatDialogModule,
   MatDialogActions,
   MatDialog,
   MatDialogContent,
-  MatDialogRef,
-} from '@angular/material/dialog';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+  MatDialogRef
+} from "@angular/material/dialog";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 @NgModule({
   imports: [
     CommonModule,
@@ -33,7 +33,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatMenuModule,
+    MatMenuModule
   ],
   exports: [
     MatButtonModule,
@@ -51,8 +51,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   ],
   declarations: []
 })
-export class MaterialModuleModule {
+export class MaterialModule {
   constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
-    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg'));
+    matIconRegistry.addSvgIconSet(
+      domSanitizer.bypassSecurityTrustResourceUrl("./assets/mdi.svg")
+    );
   }
 }

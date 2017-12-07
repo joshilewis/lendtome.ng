@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { LibrarySearchResult } from "../librarysearchresult";
+import { LibrarySearchResult } from "../dto/librarysearchresult";
 import { Observable } from "rxjs/Observable";
 import { ActivatedRoute, Router } from "@angular/router";
 import { LendtomeService } from "../lendtome.service";
