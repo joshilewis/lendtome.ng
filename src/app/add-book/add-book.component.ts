@@ -15,8 +15,8 @@ import { Router } from "@angular/router";
 export class AddBookComponent implements OnInit {
   public books: Observable<GoogleBook[]>;
   public searchTerm: string;
-  public addingIds: string[];
-  public addedIds: string[];
+  public bookStatus: Map<string, Call_Status>;
+  public Call_Status = Call_Status;
   constructor(
     private route: ActivatedRoute,
     private googleBooksService: GoogleBooksService,
@@ -25,21 +25,26 @@ export class AddBookComponent implements OnInit {
   ) {
     this.searchTerm = this.route.snapshot.paramMap.get("searchTerm");
     this.books = googleBooksService.searchBooks(this.searchTerm);
-    this.addingIds = [];
-    this.addedIds = [];
+    this.bookStatus = new Map<string, Call_Status>();
   }
 
   ngOnInit() {}
 
   public addBook(bookToAdd: GoogleBook): void {
-    this.addingIds.push(bookToAdd.id);
+    this.bookStatus[bookToAdd.id] = Call_Status.Pending;
+    this.bookStatus.set(bookToAdd.id, Call_Status.Pending);
     this.lendtomeService
       .addBook(bookToAdd)
       .then(res => {
-        this.addingIds = this.addingIds.filter(x => x !== bookToAdd.id);
-        this.addedIds.push(bookToAdd.id);
+        this.bookStatus[bookToAdd.id] = Call_Status.Success;
         // this.router.navigateByUrl("mybooks");
       })
       .catch(err => console.log(err));
   }
+}
+
+export enum Call_Status {
+  Pending,
+  Success,
+  Error
 }
