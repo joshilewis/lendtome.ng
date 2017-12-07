@@ -41,10 +41,9 @@
           <div style="font-weight: 700">{{book.title}}</div>
           <div>{{book.author}}</div>
           <div>
-            <button mat-mini-fab color="primary" (click)="removeBook(book)">
-              <mat-icon svgIcon="minus-circle">
-              </mat-icon>
-            </button>
+            <mat-icon svgIcon="minus-circle" (click)="removeBook(book)" *ngIf="!callStatus.has(book.title)">
+            </mat-icon>
+            <mat-spinner *ngIf="callStatus[book.title] === Call_Status.Pending" #loadingSpinner [diameter]="20"></mat-spinner>
           </div>
         </div>
       </div>
