@@ -13,11 +13,13 @@
       <div style="margin-bottom: 5px">
         <div style="font-weight: 700">{{book.volumeInfo.title}}</div>
         <div>{{book.volumeInfo.authors[0]}}</div>
-        <div>
-          <button mat-mini-fab color="primary" (click)="addBook(book)">
+        <div #buttonDiv id="{{book.id}}">
+          <button mat-mini-fab color="primary" (click)="addBook(book)" #button *ngIf="!addingIds.includes(book.id) && !addedIds.includes(book.id)">
             <mat-icon svgIcon="plus-circle">
             </mat-icon>
           </button>
+          <mat-spinner *ngIf="addingIds.includes(book.id) && !addedIds.includes(book.id)" #loadingSpinner [diameter]="50" style="align-content: center"></mat-spinner>
+          <mat-icon svgIcon="check-circle" *ngIf="addedIds.includes(book.id)"></mat-icon>
         </div>
       </div>
     </div>
