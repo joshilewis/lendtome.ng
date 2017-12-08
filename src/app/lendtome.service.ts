@@ -153,26 +153,22 @@ export class LendtomeService {
   }
 
   public requestConnection(library: LibrarySearchResult): Promise<Object> {
-    return Promise((resolve, reject) => {
-      this.getLibraryId().then(libraryId => {
-        this.http
-          .post(`${environment.apiUrl}/libraries/${libraryId}/links/request/`, {
-            targetLibraryId: library.id
-          })
-          .toPromise();
-      });
+    return this.getLibraryId().then(libraryId => {
+      return this.http
+        .post(`${environment.apiUrl}/libraries/${libraryId}/links/request/`, {
+          targetLibraryId: library.id
+        })
+        .toPromise();
     });
   }
 
   public acceptConnection(library: LibrarySearchResult): Promise<Object> {
-    return Promise((resolve, reject) => {
-      this.getLibraryId().then(libraryId => {
-        this.http
-          .post(`${environment.apiUrl}/libraries/${libraryId}/links/accept/`, {
-            requestingLibraryId: library.id
-          })
-          .toPromise();
-      });
+    return this.getLibraryId().then(libraryId => {
+      return this.http
+        .post(`${environment.apiUrl}/libraries/${libraryId}/links/accept/`, {
+          requestingLibraryId: library.id
+        })
+        .toPromise();
     });
   }
 
