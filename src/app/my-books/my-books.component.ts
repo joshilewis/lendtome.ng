@@ -3,7 +3,7 @@ import { LendtomeService } from "../lendtome.service";
 import { BookSearchResult } from "../dto/booksearchresult";
 import { NewBookSearcherComponent } from "../new-book-searcher/new-book-searcher.component";
 import { BarcodeScannerComponent } from "../barcode-scanner/barcode-scanner.component";
-import { Call_Status, Call_Status1 } from "../infra/call-status";
+import { Call_Status } from "../infra/call-status";
 
 @Component({
   selector: "app-my-books",
