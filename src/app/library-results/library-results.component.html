@@ -32,10 +32,10 @@
         <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap; align-items:center; justify-content: center;">
           <div style="font-weight: 700">{{library.name}}</div>
           <div>
-            <button mat-mini-fab color="primary" (click)="connectToLibrary(library)">
-              <mat-icon svgIcon="plus-circle">
-              </mat-icon>
-            </button>
+            <mat-icon svgIcon="plus-circle" (click)="connectToLibrary(library)" *ngIf="!callStatus.has(library.id)">
+            </mat-icon>
+            <mat-spinner *ngIf="callStatus[library.id] === Call_Status.Pending" [diameter]="20"></mat-spinner>
+            <mat-icon svgIcon="check-circle" *ngIf="callStatus[library.id] === Call_Status.Success"></mat-icon>
           </div>
         </div>
       </div>

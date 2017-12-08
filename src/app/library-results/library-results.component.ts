@@ -3,6 +3,7 @@ import { LibrarySearchResult } from "../dto/librarysearchresult";
 import { Observable } from "rxjs/Observable";
 import { ActivatedRoute, Router } from "@angular/router";
 import { LendtomeService } from "../lendtome.service";
+import { Call_Status } from "../infra/call-status";
 
 @Component({
   selector: "app-library-results",
@@ -12,6 +13,8 @@ import { LendtomeService } from "../lendtome.service";
 export class LibraryResultsComponent implements OnInit {
   public libraries: Observable<LibrarySearchResult[]>;
   public searchTerm: string;
+  public Call_Status = Call_Status;
+  public callStatus: Map<string, Call_Status>;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,14 +23,18 @@ export class LibraryResultsComponent implements OnInit {
   ) {
     this.searchTerm = this.route.snapshot.paramMap.get("searchTerm");
     this.libraries = lendtomeService.searchLibraries(this.searchTerm);
+    this.callStatus = new Map<string, Call_Status>();
   }
 
   ngOnInit() {}
   public connectToLibrary(library: LibrarySearchResult): void {
+    this.callStatus[library.id] = Call_Status.Pending;
+    this.callStatus.set(library.id, Call_Status.Pending);
     this.lendtomeService
       .requestConnection(library)
       .then(res => {
-        this.router.navigateByUrl("libraries");
+        this.callStatus[library.id] = Call_Status.Success;
+        // this.router.navigateByUrl("libraries");
       })
       .catch(err => console.log(err));
   }
