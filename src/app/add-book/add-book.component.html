@@ -12,7 +12,7 @@
     <div style="margin-left: 5px; display: flex; flex-direction: column; flex-wrap: nowrap; align-items:center; justify-content: center;">
       <div style="margin-bottom: 5px">
         <div style="font-weight: 700">{{book.volumeInfo.title}}</div>
-        <div>{{book.volumeInfo.authors[0]}}</div>
+        <div *ngIf="book.volumeInfo.authors && book.volumeInfo.authors.length > 0">{{book.volumeInfo.authors[0]}}</div>
         <div>
           <mat-icon svgIcon="plus-circle" (click)="addBook(book)" *ngIf="!callStatus.has(book.id)">
           </mat-icon>

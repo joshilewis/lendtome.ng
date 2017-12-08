@@ -11,7 +11,9 @@ import {
   MatIconModule,
   MatIconRegistry,
   MatProgressSpinnerModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSnackBarModule,
+  MatSnackBar
 } from "@angular/material";
 import {
   MatDialogModule,
@@ -33,7 +35,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     BrowserAnimationsModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule
   ],
   exports: [
     MatButtonModule,
@@ -47,7 +50,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     BrowserAnimationsModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule
   ],
   declarations: []
 })

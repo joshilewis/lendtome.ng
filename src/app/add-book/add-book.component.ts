@@ -7,6 +7,7 @@ import { catchError, map, tap } from "rxjs/operators";
 import { LendtomeService } from "../lendtome.service";
 import { Router } from "@angular/router";
 import { Call_Status } from "../infra/call-status";
+import { MatSnackBar, MatSnackBarConfig } from "@angular/material";
 
 @Component({
   selector: "app-add-book",
@@ -22,7 +23,8 @@ export class AddBookComponent implements OnInit {
     private route: ActivatedRoute,
     private googleBooksService: GoogleBooksService,
     public lendtomeService: LendtomeService,
-    private router: Router
+    private router: Router,
+    public snackBar: MatSnackBar
   ) {
     this.searchTerm = this.route.snapshot.paramMap.get("searchTerm");
     this.books = googleBooksService.searchBooks(this.searchTerm);
@@ -38,7 +40,10 @@ export class AddBookComponent implements OnInit {
       .addBook(bookToAdd)
       .then(res => {
         this.callStatus[bookToAdd.id] = Call_Status.Success;
-        // this.router.navigateByUrl("mybooks");
+        this.snackBar.open("Book added successfully", "Ok", {
+          verticalPosition: "top",
+          duration: 3 * 1000
+        });
       })
       .catch(err => console.log(err));
   }
