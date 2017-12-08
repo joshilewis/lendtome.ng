@@ -3,6 +3,7 @@ import { LendtomeService } from "../lendtome.service";
 import { Observable } from "rxjs/Observable";
 import { LibrarySearchResult } from "../dto/librarysearchresult";
 import { Router } from "@angular/router";
+import { Call_Status } from "../infra/call-status";
 
 @Component({
   selector: "app-connected-libraries",
@@ -10,17 +11,23 @@ import { Router } from "@angular/router";
   styleUrls: ["./connected-libraries.component.css"]
 })
 export class ConnectedLibrariesComponent implements OnInit {
-  constructor(
-    public lendtomeService: LendtomeService,
-    private router: Router
-  ) {}
+  public Call_Status = Call_Status;
+  public callStatus: Map<string, Call_Status>;
+  constructor(public lendtomeService: LendtomeService, private router: Router) {
+    this.callStatus = new Map<string, Call_Status>();
+  }
 
   ngOnInit() {}
 
   public acceptConnection(library: LibrarySearchResult): void {
+    this.callStatus[library.id] = Call_Status.Pending;
+    this.callStatus.set(library.id, Call_Status.Pending);
     this.lendtomeService
       .acceptConnection(library)
-      .then(this.lendtomeService.refreshReceivedConnections)
+      .then(resolve => {
+        this.callStatus[library.id] = Call_Status.Success;
+        // this.lendtomeService.refreshReceivedConnections)
+      })
       .catch(err => console.log(err));
   }
 }

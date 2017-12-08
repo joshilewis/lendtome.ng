@@ -34,10 +34,10 @@
           <div style="font-weight: 700">{{request.name}}</div>
           <div>
             <div>
-              <button mat-mini-fab color="primary" (click)="acceptConnection(request)">
-                <mat-icon svgIcon="plus-circle">
-                </mat-icon>
-              </button>
+              <mat-icon svgIcon="plus-circle" (click)="acceptConnection(request)" *ngIf="!callStatus.has(request.id)">
+              </mat-icon>
+              <mat-spinner *ngIf="callStatus[request.id] === Call_Status.Pending" [diameter]="20"></mat-spinner>
+              <mat-icon svgIcon="check-circle" *ngIf="callStatus[request.id] === Call_Status.Success"></mat-icon>
             </div>
           </div>
         </div>
