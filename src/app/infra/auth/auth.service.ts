@@ -12,7 +12,7 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { PersistenceService } from "angular-persistence/src/services/persistence.service";
 import { LendtomeService } from "../../lendtome.service";
 import { StorageType } from "angular-persistence";
-import { KeyConstants } from "../key-contstants";
+import { Constants } from "../contstants";
 
 interface User {
   uid: string;
@@ -82,7 +82,7 @@ export class AuthService {
   }
 
   signOut() {
-    this.persistenceService.remove(KeyConstants.libraryId, StorageType.LOCAL);
+    this.persistenceService.remove(Constants.keys.libraryId, StorageType.LOCAL);
     this.afAuth.auth.signOut().then(() => {
       this.router.navigate(["/"]);
     });

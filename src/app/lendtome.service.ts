@@ -14,7 +14,7 @@ import { StorageType } from "angular-persistence/src/constants/persistence.stora
 import { GoogleBook } from "./googlebooks/googlebook";
 import "rxjs/add/operator/toPromise";
 import { Promise } from "q";
-import { KeyConstants } from "./infra/key-contstants";
+import { Constants } from "./infra/contstants";
 import { LibraryStatusResult } from "./dto/librarystatusresult";
 import "rxjs/add/operator/mergeMap";
 
@@ -38,7 +38,7 @@ export class LendtomeService {
 
   private getLibraryId(): Promise<string> {
     const libraryId = this.persistenceService.get(
-      KeyConstants.libraryId,
+      Constants.keys.libraryId,
       StorageType.LOCAL
     );
 
@@ -50,7 +50,7 @@ export class LendtomeService {
       console.log(`libraryId not in storage, getting from API`);
       this.getLibraryIdFromApi().then(result => {
         console.log(`received libraryId from API: ${result}`);
-        this.persistenceService.set(KeyConstants.libraryId, result, {
+        this.persistenceService.set(Constants.keys.libraryId, result, {
           type: StorageType.LOCAL
         });
         resolve(result);
