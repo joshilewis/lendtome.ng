@@ -8,6 +8,7 @@ import { LendtomeService } from "../lendtome.service";
 import { Router } from "@angular/router";
 import { Call_Status } from "../infra/call-status";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material";
+import { Constants } from "../infra/contstants";
 
 @Component({
   selector: "app-add-book",
@@ -24,7 +25,7 @@ export class AddBookComponent implements OnInit {
     private googleBooksService: GoogleBooksService,
     public lendtomeService: LendtomeService,
     private router: Router,
-    public snackBar: MatSnackBar
+    private snackBar: MatSnackBar
   ) {
     this.searchTerm = this.route.snapshot.paramMap.get("searchTerm");
     this.books = googleBooksService.searchBooks(this.searchTerm);
@@ -40,10 +41,11 @@ export class AddBookComponent implements OnInit {
       .addBook(bookToAdd)
       .then(res => {
         this.callStatus[bookToAdd.id] = Call_Status.Success;
-        this.snackBar.open("Book added successfully", "Ok", {
-          verticalPosition: "top",
-          duration: 3 * 1000
-        });
+        this.snackBar.open(
+          "Book added successfully",
+          "Ok",
+          Constants.defaults.snackBarConfig
+        );
       })
       .catch(err => console.log(err));
   }
