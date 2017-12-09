@@ -4,6 +4,8 @@ import { Observable } from "rxjs/Observable";
 import { LibrarySearchResult } from "../dto/librarysearchresult";
 import { Router } from "@angular/router";
 import { Call_Status } from "../infra/call-status";
+import { MatSnackBar } from "@angular/material";
+import { Constants } from "../infra/contstants";
 
 @Component({
   selector: "app-connected-libraries",
@@ -13,7 +15,11 @@ import { Call_Status } from "../infra/call-status";
 export class ConnectedLibrariesComponent implements OnInit {
   public Call_Status = Call_Status;
   public callStatus: Map<string, Call_Status>;
-  constructor(public lendtomeService: LendtomeService, private router: Router) {
+  constructor(
+    public lendtomeService: LendtomeService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {
     this.callStatus = new Map<string, Call_Status>();
   }
 
@@ -25,6 +31,11 @@ export class ConnectedLibrariesComponent implements OnInit {
     this.lendtomeService
       .acceptConnection(library)
       .then(resolve => {
+        this.snackBar.open(
+          "Library connection accepted",
+          "Ok",
+          Constants.defaults.snackBarConfig
+        );
         this.callStatus[library.id] = Call_Status.Success;
         // this.lendtomeService.refreshReceivedConnections)
       })
